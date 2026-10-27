@@ -35,14 +35,14 @@ const MainAppContent: React.FC = () => {
       {/* Main Viewport */}
       {!isAuthenticated ? (
         <>
-          {/* 1. Public Landing Page with normal page scrolling & standard responsive margins (+10px width) */}
-          <main className="flex-1 w-full max-w-[1290px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          {/* 1. Public Landing Page with normal page scrolling & standard responsive margins */}
+          <main className="flex-1 w-full max-w-[1390px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <LandingPage onStartAnalysis={openRegister} />
           </main>
 
           {/* Minimalist Editorial Footer on Landing Page Only */}
           <footer className="border-t border-[#3a434d] bg-[#0e1114] py-8 text-xs text-[#87919b] mt-20">
-            <div className="w-full max-w-[1290px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+            <div className="w-full max-w-[1390px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
               <div className="flex items-center gap-2">
                 <span className="font-bold text-sm text-[#f0f4f8]">NeuroScope</span>
                 <span className="text-[#87919b]">— Explainable Movement Disorders Research Platform</span>

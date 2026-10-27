@@ -58,7 +58,7 @@ export const PublicNavbar: React.FC<PublicNavbarProps> = ({
       className={`fixed top-3 sm:top-4 inset-x-0 z-40 mx-auto transition-all duration-300 ${
         isAuthenticated
           ? 'w-[99%] max-w-[1920px] px-2 sm:px-4'
-          : 'w-full max-w-[1310px] px-4 sm:px-6 lg:px-8'
+          : 'w-full max-w-[1410px] px-4 sm:px-6 lg:px-8'
       }`}
     >
       {/* Exquisite Floating Instrument Navbar */}

@@ -67,9 +67,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartAnalysis }) => 
         <div className="absolute -top-20 left-1/4 w-80 h-80 bg-[#87919b]/15 rounded-full blur-3xl pointer-events-none z-0" />
         <div className="absolute top-1/3 right-10 w-80 h-80 bg-[#3a434d]/30 rounded-full blur-3xl pointer-events-none z-0" />
 
-        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           {/* Left: Editorial Content (Enhanced Proportions) */}
-          <div className="lg:col-span-7 space-y-7">
+          <div className="lg:col-span-6 space-y-7">
             {/* Live Indicator Pill */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#2a3139]/90 backdrop-blur-md border border-[#87919b]/30 text-xs font-mono text-[#f0f4f8]">
               <span className="relative flex h-2 w-2">
@@ -112,8 +112,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartAnalysis }) => 
             </div>
           </div>
 
-          {/* Right: COMPACT 200 Hz OSCILLOSCOPE CONSOLE (Enlarged Proportions) */}
-          <div className="lg:col-span-5 mt-6 lg:mt-0">
+          {/* Right: COMPACT 200 Hz OSCILLOSCOPE CONSOLE (Enlarged Proportions & Increased Width) */}
+          <div className="lg:col-span-6 mt-6 lg:mt-0 w-full">
             <div className="bg-[#2a3139]/85 backdrop-blur-xl border border-[#3a434d] hover:border-[#87919b]/40 rounded-2xl sm:rounded-3xl p-6 sm:p-7 shadow-[0_16px_44px_-10px_rgba(14,17,20,0.75)] relative overflow-hidden transition-all group space-y-4">
               {/* Clean Console Top Header */}
               <div className="flex items-center justify-between pb-3.5 border-b border-[#3a434d]">
@@ -132,23 +132,23 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartAnalysis }) => 
                 </div>
               </div>
 
-              {/* Clean Channel Tabs (Single Row) */}
-              <div className="flex items-center gap-2">
+              {/* Clean Channel Tabs (Single Row - Increased Width) */}
+              <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
                 <button
                   type="button"
                   onClick={() => setActiveSignalView('index')}
-                  className={`text-xs font-mono px-3.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  className={`text-xs font-mono py-2.5 px-2 rounded-xl transition-all cursor-pointer text-center flex items-center justify-center whitespace-nowrap ${
                     activeSignalView === 'index'
                       ? 'bg-[#f0f4f8] text-[#14181d] font-bold shadow-sm'
                       : 'bg-[#14181d] text-[#87919b] hover:text-[#f0f4f8] border border-[#3a434d]'
                   }`}
                 >
-                  Index Flexion (deg/s)
+                  Index Flexion
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveSignalView('thumb')}
-                  className={`text-xs font-mono px-3.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  className={`text-xs font-mono py-2.5 px-2 rounded-xl transition-all cursor-pointer text-center flex items-center justify-center whitespace-nowrap ${
                     activeSignalView === 'thumb'
                       ? 'bg-[#f0f4f8] text-[#14181d] font-bold shadow-sm'
                       : 'bg-[#14181d] text-[#87919b] hover:text-[#f0f4f8] border border-[#3a434d]'
@@ -159,7 +159,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartAnalysis }) => 
                 <button
                   type="button"
                   onClick={() => setActiveSignalView('spectrum')}
-                  className={`text-xs font-mono px-3.5 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  className={`text-xs font-mono py-2.5 px-2 rounded-xl transition-all cursor-pointer text-center flex items-center justify-center whitespace-nowrap ${
                     activeSignalView === 'spectrum'
                       ? 'bg-[#f0f4f8] text-[#14181d] font-bold shadow-sm'
                       : 'bg-[#14181d] text-[#87919b] hover:text-[#f0f4f8] border border-[#3a434d]'
