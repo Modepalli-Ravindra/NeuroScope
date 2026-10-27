@@ -80,9 +80,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartAnalysis }) => 
             </div>
 
             {/* Striking Editorial Headline (Enlarged Size) */}
-            <h1 className="text-5xl sm:text-6xl lg:text-[68px] text-[#f0f4f8] font-bold tracking-tight leading-[1.08]">
+            <h1 className="text-6xl sm:text-7xl lg:text-[80px] xl:text-[86px] text-[#f0f4f8] font-bold tracking-tight leading-[1.04]">
               Every Signal <br />
-              <span className="text-[#87919b] font-normal italic drop-shadow-[0_0_25px_rgba(196,203,213,0.3)]">
+              <span className="text-[#87919b] font-normal italic drop-shadow-[0_0_30px_rgba(196,203,213,0.35)]">
                 Holds an Insight.
               </span>
             </h1>
