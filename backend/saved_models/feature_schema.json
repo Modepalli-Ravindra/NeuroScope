@@ -1,0 +1,142 @@
+{
+  "features": [
+    "gyroThumbX_rms",
+    "gyroThumbX_p2p",
+    "gyroThumbX_jerk_rms",
+    "gyroThumbY_rms",
+    "gyroThumbY_p2p",
+    "gyroThumbY_jerk_rms",
+    "gyroThumbY_dom_freq",
+    "gyroThumbY_dom_pwr_ratio",
+    "gyroThumbY_spec_entropy",
+    "gyroThumbZ_rms",
+    "gyroThumbZ_p2p",
+    "gyroThumbZ_jerk_rms",
+    "gyroIndexX_rms",
+    "gyroIndexX_p2p",
+    "gyroIndexX_jerk_rms",
+    "gyroIndexY_rms",
+    "gyroIndexY_p2p",
+    "gyroIndexY_jerk_rms",
+    "gyroIndexY_dom_freq",
+    "gyroIndexY_dom_pwr_ratio",
+    "gyroIndexY_spec_entropy",
+    "gyroIndexZ_rms",
+    "gyroIndexZ_p2p",
+    "gyroIndexZ_jerk_rms",
+    "thumb_mag_mean",
+    "thumb_mag_std",
+    "thumb_mag_rms",
+    "thumb_mag_p2p",
+    "thumb_mag_jerk_rms",
+    "index_mag_mean",
+    "index_mag_std",
+    "index_mag_rms",
+    "index_mag_p2p",
+    "index_mag_jerk_rms",
+    "relative_mag_mean",
+    "relative_mag_std",
+    "relative_mag_rms",
+    "relative_mag_p2p",
+    "relative_mag_jerk_rms",
+    "tap_count",
+    "tap_rate_hz",
+    "tap_interval_cv",
+    "tap_amplitude_cv",
+    "tap_amplitude_decay",
+    "tap_rhythmicity_idx"
+  ],
+  "count": 45,
+  "global_importance": [
+    {
+      "rank": 1,
+      "feature": "gyroThumbZ_rms",
+      "importance": 0.0547,
+      "description": "Root mean square movement magnitude"
+    },
+    {
+      "rank": 2,
+      "feature": "gyroThumbX_p2p",
+      "importance": 0.0543,
+      "description": "Peak-to-peak angular velocity range"
+    },
+    {
+      "rank": 3,
+      "feature": "gyroThumbX_rms",
+      "importance": 0.0483,
+      "description": "Root mean square movement magnitude"
+    },
+    {
+      "rank": 4,
+      "feature": "gyroIndexZ_rms",
+      "importance": 0.0252,
+      "description": "Root mean square movement magnitude"
+    },
+    {
+      "rank": 5,
+      "feature": "gyroThumbZ_p2p",
+      "importance": 0.0237,
+      "description": "Peak-to-peak angular velocity range"
+    },
+    {
+      "rank": 6,
+      "feature": "gyroIndexX_p2p",
+      "importance": 0.0229,
+      "description": "Peak-to-peak angular velocity range"
+    },
+    {
+      "rank": 7,
+      "feature": "thumb_mag_mean",
+      "importance": 0.0208,
+      "description": "Kinematic movement statistical indicator"
+    },
+    {
+      "rank": 8,
+      "feature": "gyroThumbX_jerk_rms",
+      "importance": 0.0174,
+      "description": "Angular jerk / motion abruptness (derivative of angular velocity)"
+    },
+    {
+      "rank": 9,
+      "feature": "gyroIndexZ_p2p",
+      "importance": 0.0144,
+      "description": "Peak-to-peak angular velocity range"
+    },
+    {
+      "rank": 10,
+      "feature": "tap_amplitude_decay",
+      "importance": 0.014,
+      "description": "Progressive fatigue / decrement slope across consecutive taps"
+    },
+    {
+      "rank": 11,
+      "feature": "gyroThumbY_rms",
+      "importance": 0.013,
+      "description": "Root mean square movement magnitude"
+    },
+    {
+      "rank": 12,
+      "feature": "gyroThumbY_p2p",
+      "importance": 0.0128,
+      "description": "Peak-to-peak angular velocity range"
+    },
+    {
+      "rank": 13,
+      "feature": "thumb_mag_std",
+      "importance": 0.0116,
+      "description": "Kinematic movement statistical indicator"
+    },
+    {
+      "rank": 14,
+      "feature": "thumb_mag_jerk_rms",
+      "importance": 0.0112,
+      "description": "Angular jerk / motion abruptness (derivative of angular velocity)"
+    },
+    {
+      "rank": 15,
+      "feature": "tap_amplitude_cv",
+      "importance": 0.0111,
+      "description": "Tap amplitude variation (hypometria fluctuation)"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "total_recordings": 140,
+  "unique_subjects": 27,
+  "class_distribution": {
+    "MSA": 72,
+    "PD": 68
+  },
+  "participants_per_class": {
+    "MSA": 13,
+    "PD": 14
+  },
+  "source": "FINGER-TAPPING-PARKINSONISMS-DATABASE (Heliyon 2023)",
+  "msa_subtype_note": "The MSA cohort in this dataset is predominantly MSA-P (parkinsonian subtype). Generalization to MSA-C (cerebellar subtype) is unverified."
+}

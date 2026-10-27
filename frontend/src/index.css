@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #14181d;
+    --bg-secondary: #0e1114;
+    --surface-card: #2a3139;
+    --surface-elevated: #343c46;
+    --border-subtle: #3a434d;
+    --border-strong: rgba(196, 203, 213, 0.25);
+    --text-primary: #f0f4f8;
+    --text-secondary: #c4cbd5;
+    --text-muted: #87919b;
+    --accent-mist: #c4cbd5;
+    --accent-bright: #f0f4f8;
+    --accent-warning: #f59e0b;
+    --error: #ef4444;
+  }
+
+  body {
+    background-color: #14181d;
+    color: #f0f4f8;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, .font-serif, .font-editorial {
+    font-family: 'DM Serif Display', Georgia, serif;
+    letter-spacing: -0.015em;
+  }
+
+  .font-tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Dark Slate Palette (#14181d, #2a3139, #87919b, #c4cbd5) */
+.card-charcoal {
+  background-color: #2a3139;
+  border: 1px solid #3a434d;
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 30px -4px rgba(14, 17, 20, 0.7);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card-charcoal:hover {
+  border-color: rgba(196, 203, 213, 0.4);
+}
+
+.card-charcoal-elevated {
+  background-color: #343c46;
+  border: 1px solid rgba(196, 203, 213, 0.25);
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 32px -4px rgba(14, 17, 20, 0.8);
+}
+
+.card-yellow-accent {
+  background-color: #2a3139;
+  border: 1px solid rgba(196, 203, 213, 0.45);
+  border-radius: 1.25rem;
+  box-shadow: 0 0 25px rgba(196, 203, 213, 0.15);
+}
+
+/* Primary Button in Mist Silver (#c4cbd5) with Dark Slate Text (#14181d) */
+.btn-yellow-primary {
+  background-color: #c4cbd5;
+  color: #14181d;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.35rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 18px rgba(196, 203, 213, 0.25);
+}
+
+.btn-yellow-primary:hover {
+  background-color: #f0f4f8;
+  box-shadow: 0 6px 24px rgba(196, 203, 213, 0.45);
+}
+
+/* Secondary Button in Slate Outline */
+.btn-charcoal-outline {
+  background-color: rgba(42, 49, 57, 0.7);
+  color: #f0f4f8;
+  border: 1px solid #3a434d;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.35rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-charcoal-outline:hover {
+  border-color: #c4cbd5;
+  color: #ffffff;
+  background-color: rgba(52, 60, 70, 0.5);
+}
+
+.btn-amber-primary {
+  background-color: #c4cbd5;
+  color: #14181d;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.35rem;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-amber-primary:hover {
+  background-color: #f0f4f8;
+  box-shadow: 0 4px 18px rgba(196, 203, 213, 0.4);
+}
+
+.btn-cocoa-outline {
+  background-color: transparent;
+  color: #f0f4f8;
+  border: 1px solid #3a434d;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.35rem;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-cocoa-outline:hover {
+  border-color: #c4cbd5;
+  color: #ffffff;
+  background-color: rgba(52, 60, 70, 0.4);
+}
+
+/* Custom Scrollbar in Dark Slate */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #14181d;
+}
+::-webkit-scrollbar-thumb {
+  background: #3a434d;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 203, 213, 0.45);
+}
+
+@keyframes sweepScan {
+  0% {
+    transform: translateX(-10%);
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateX(580px);
+    opacity: 0.1;
+  }
+}
+
+.animate-sweep {
+  animation: sweepScan 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes pulseRhythm {
+  0%, 100% {
+    transform: scaleY(0.4);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.animate-rhythm-1 { animation: pulseRhythm 0.8s ease-in-out infinite; }
+.animate-rhythm-2 { animation: pulseRhythm 0.6s ease-in-out infinite 0.15s; }
+.animate-rhythm-3 { animation: pulseRhythm 0.7s ease-in-out infinite 0.3s; }
+.animate-rhythm-4 { animation: pulseRhythm 0.5s ease-in-out infinite 0.1s; }
+.animate-rhythm-5 { animation: pulseRhythm 0.9s ease-in-out infinite 0.25s; }

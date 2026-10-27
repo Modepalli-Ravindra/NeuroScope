@@ -1,0 +1,553 @@
+{
+  "Optimized Logistic Regression v2 (C=0.5, RobustScaler)": {
+    "pooled": {
+      "accuracy": 0.8,
+      "balanced_accuracy": 0.8002,
+      "sensitivity_msa": 0.7917,
+      "specificity_pd": 0.8088,
+      "f1_score": 0.8,
+      "roc_auc": 0.8264,
+      "brier_score": 0.1621,
+      "confusion_matrix": {
+        "tn": 55,
+        "fp": 13,
+        "fn": 15,
+        "tp": 57,
+        "matrix": [
+          [
+            55,
+            13
+          ],
+          [
+            15,
+            57
+          ]
+        ]
+      }
+    },
+    "patient_level": {
+      "accuracy": 0.8519,
+      "balanced_accuracy": 0.8489,
+      "sensitivity_msa": 0.7692,
+      "specificity_pd": 0.9286,
+      "roc_auc": 0.8956,
+      "cohort_size": 27,
+      "confusion_matrix": {
+        "tn": 13,
+        "fp": 1,
+        "fn": 3,
+        "tp": 10,
+        "matrix": [
+          [
+            13,
+            1
+          ],
+          [
+            3,
+            10
+          ]
+        ]
+      }
+    },
+    "per_fold": {
+      "balanced_accuracy_mean": 0.7981,
+      "balanced_accuracy_std": 0.1417,
+      "roc_auc_mean": 0.8201,
+      "roc_auc_std": 0.2044,
+      "folds": [
+        {
+          "fold": 1,
+          "balanced_accuracy": 0.928921568627451,
+          "roc_auc": 0.9411764705882353
+        },
+        {
+          "fold": 2,
+          "balanced_accuracy": 0.8529411764705883,
+          "roc_auc": 0.9529411764705883
+        },
+        {
+          "fold": 3,
+          "balanced_accuracy": 0.5521978021978022,
+          "roc_auc": 0.44505494505494503
+        },
+        {
+          "fold": 4,
+          "balanced_accuracy": 0.9230769230769231,
+          "roc_auc": 1.0
+        },
+        {
+          "fold": 5,
+          "balanced_accuracy": 0.7333333333333334,
+          "roc_auc": 0.7611111111111111
+        }
+      ]
+    }
+  },
+  "Linear SVM (C=0.5, RobustScaler)": {
+    "pooled": {
+      "accuracy": 0.7714,
+      "balanced_accuracy": 0.7708,
+      "sensitivity_msa": 0.7917,
+      "specificity_pd": 0.75,
+      "f1_score": 0.7713,
+      "roc_auc": 0.7929,
+      "brier_score": 0.1925,
+      "confusion_matrix": {
+        "tn": 51,
+        "fp": 17,
+        "fn": 15,
+        "tp": 57,
+        "matrix": [
+          [
+            51,
+            17
+          ],
+          [
+            15,
+            57
+          ]
+        ]
+      }
+    },
+    "patient_level": {
+      "accuracy": 0.7407,
+      "balanced_accuracy": 0.7418,
+      "sensitivity_msa": 0.7692,
+      "specificity_pd": 0.7143,
+      "roc_auc": 0.8297,
+      "cohort_size": 27,
+      "confusion_matrix": {
+        "tn": 10,
+        "fp": 4,
+        "fn": 3,
+        "tp": 10,
+        "matrix": [
+          [
+            10,
+            4
+          ],
+          [
+            3,
+            10
+          ]
+        ]
+      }
+    },
+    "per_fold": {
+      "balanced_accuracy_mean": 0.7673,
+      "balanced_accuracy_std": 0.1418,
+      "roc_auc_mean": 0.8294,
+      "roc_auc_std": 0.1922,
+      "folds": [
+        {
+          "fold": 1,
+          "balanced_accuracy": 0.928921568627451,
+          "roc_auc": 0.9362745098039215
+        },
+        {
+          "fold": 2,
+          "balanced_accuracy": 0.8529411764705883,
+          "roc_auc": 0.9803921568627452
+        },
+        {
+          "fold": 3,
+          "balanced_accuracy": 0.5137362637362638,
+          "roc_auc": 0.4725274725274725
+        },
+        {
+          "fold": 4,
+          "balanced_accuracy": 0.8076923076923077,
+          "roc_auc": 0.9743589743589745
+        },
+        {
+          "fold": 5,
+          "balanced_accuracy": 0.7333333333333334,
+          "roc_auc": 0.7833333333333333
+        }
+      ]
+    }
+  },
+  "Baseline Logistic Regression (C=1.0, StandardScaler)": {
+    "pooled": {
+      "accuracy": 0.7429,
+      "balanced_accuracy": 0.7431,
+      "sensitivity_msa": 0.7361,
+      "specificity_pd": 0.75,
+      "f1_score": 0.7429,
+      "roc_auc": 0.8117,
+      "brier_score": 0.1847,
+      "confusion_matrix": {
+        "tn": 51,
+        "fp": 17,
+        "fn": 19,
+        "tp": 53,
+        "matrix": [
+          [
+            51,
+            17
+          ],
+          [
+            19,
+            53
+          ]
+        ]
+      }
+    },
+    "patient_level": {
+      "accuracy": 0.7778,
+      "balanced_accuracy": 0.7775,
+      "sensitivity_msa": 0.7692,
+      "specificity_pd": 0.7857,
+      "roc_auc": 0.8736,
+      "cohort_size": 27,
+      "confusion_matrix": {
+        "tn": 11,
+        "fp": 3,
+        "fn": 3,
+        "tp": 10,
+        "matrix": [
+          [
+            11,
+            3
+          ],
+          [
+            3,
+            10
+          ]
+        ]
+      }
+    },
+    "per_fold": {
+      "balanced_accuracy_mean": 0.7405,
+      "balanced_accuracy_std": 0.1588,
+      "roc_auc_mean": 0.8157,
+      "roc_auc_std": 0.1935,
+      "folds": [
+        {
+          "fold": 1,
+          "balanced_accuracy": 0.9705882352941176,
+          "roc_auc": 0.9411764705882353
+        },
+        {
+          "fold": 2,
+          "balanced_accuracy": 0.7901960784313726,
+          "roc_auc": 0.9372549019607843
+        },
+        {
+          "fold": 3,
+          "balanced_accuracy": 0.4807692307692308,
+          "roc_auc": 0.478021978021978
+        },
+        {
+          "fold": 4,
+          "balanced_accuracy": 0.7692307692307692,
+          "roc_auc": 1.0
+        },
+        {
+          "fold": 5,
+          "balanced_accuracy": 0.6916666666666667,
+          "roc_auc": 0.7222222222222222
+        }
+      ]
+    }
+  },
+  "Baseline Random Forest (Trees=100, Depth=6)": {
+    "pooled": {
+      "accuracy": 0.7143,
+      "balanced_accuracy": 0.7149,
+      "sensitivity_msa": 0.6944,
+      "specificity_pd": 0.7353,
+      "f1_score": 0.7143,
+      "roc_auc": 0.7294,
+      "brier_score": 0.2166,
+      "confusion_matrix": {
+        "tn": 50,
+        "fp": 18,
+        "fn": 22,
+        "tp": 50,
+        "matrix": [
+          [
+            50,
+            18
+          ],
+          [
+            22,
+            50
+          ]
+        ]
+      }
+    },
+    "patient_level": {
+      "accuracy": 0.7037,
+      "balanced_accuracy": 0.7005,
+      "sensitivity_msa": 0.6154,
+      "specificity_pd": 0.7857,
+      "roc_auc": 0.7582,
+      "cohort_size": 27,
+      "confusion_matrix": {
+        "tn": 11,
+        "fp": 3,
+        "fn": 5,
+        "tp": 8,
+        "matrix": [
+          [
+            11,
+            3
+          ],
+          [
+            5,
+            8
+          ]
+        ]
+      }
+    },
+    "per_fold": {
+      "balanced_accuracy_mean": 0.7182,
+      "balanced_accuracy_std": 0.1908,
+      "roc_auc_mean": 0.721,
+      "roc_auc_std": 0.2106,
+      "folds": [
+        {
+          "fold": 1,
+          "balanced_accuracy": 0.928921568627451,
+          "roc_auc": 0.9411764705882353
+        },
+        {
+          "fold": 2,
+          "balanced_accuracy": 0.6313725490196078,
+          "roc_auc": 0.6431372549019607
+        },
+        {
+          "fold": 3,
+          "balanced_accuracy": 0.4807692307692308,
+          "roc_auc": 0.4230769230769231
+        },
+        {
+          "fold": 4,
+          "balanced_accuracy": 0.9583333333333333,
+          "roc_auc": 0.9807692307692307
+        },
+        {
+          "fold": 5,
+          "balanced_accuracy": 0.5916666666666667,
+          "roc_auc": 0.6166666666666667
+        }
+      ]
+    }
+  },
+  "Baseline KNN (k=5, Distance Weighted)": {
+    "pooled": {
+      "accuracy": 0.6714,
+      "balanced_accuracy": 0.6691,
+      "sensitivity_msa": 0.75,
+      "specificity_pd": 0.5882,
+      "f1_score": 0.6691,
+      "roc_auc": 0.7148,
+      "brier_score": 0.2629,
+      "confusion_matrix": {
+        "tn": 40,
+        "fp": 28,
+        "fn": 18,
+        "tp": 54,
+        "matrix": [
+          [
+            40,
+            28
+          ],
+          [
+            18,
+            54
+          ]
+        ]
+      }
+    },
+    "patient_level": {
+      "accuracy": 0.6296,
+      "balanced_accuracy": 0.6319,
+      "sensitivity_msa": 0.6923,
+      "specificity_pd": 0.5714,
+      "roc_auc": 0.7198,
+      "cohort_size": 27,
+      "confusion_matrix": {
+        "tn": 8,
+        "fp": 6,
+        "fn": 4,
+        "tp": 9,
+        "matrix": [
+          [
+            8,
+            6
+          ],
+          [
+            4,
+            9
+          ]
+        ]
+      }
+    },
+    "per_fold": {
+      "balanced_accuracy_mean": 0.6731,
+      "balanced_accuracy_std": 0.1642,
+      "roc_auc_mean": 0.7046,
+      "roc_auc_std": 0.2035,
+      "folds": [
+        {
+          "fold": 1,
+          "balanced_accuracy": 0.8872549019607843,
+          "roc_auc": 0.9485294117647058
+        },
+        {
+          "fold": 2,
+          "balanced_accuracy": 0.3941176470588236,
+          "roc_auc": 0.3411764705882353
+        },
+        {
+          "fold": 3,
+          "balanced_accuracy": 0.6263736263736264,
+          "roc_auc": 0.6868131868131868
+        },
+        {
+          "fold": 4,
+          "balanced_accuracy": 0.766025641025641,
+          "roc_auc": 0.8269230769230769
+        },
+        {
+          "fold": 5,
+          "balanced_accuracy": 0.6916666666666667,
+          "roc_auc": 0.7194444444444444
+        }
+      ]
+    }
+  },
+  "primary_model": "Optimized Logistic Regression v3 (Selected)",
+  "v3_metrics": {
+    "balanced_accuracy": 0.7843137254901962,
+    "sensitivity_msa": 0.8333333333333334,
+    "specificity_pd": 0.7352941176470589,
+    "roc_auc": 0.8445669934640523,
+    "brier_score": 0.15628634949379347,
+    "total_recordings": 140,
+    "confusion_matrix": {
+      "tn": 50,
+      "fp": 18,
+      "fn": 12,
+      "tp": 60
+    }
+  },
+  "v3_patient_metrics": {
+    "balanced_accuracy": 0.9258241758241759,
+    "sensitivity_msa": 0.9230769230769231,
+    "specificity_pd": 0.9285714285714286,
+    "overall_accuracy": 0.9259259259259259,
+    "roc_auc": 0.9120879120879122,
+    "total_patients": 27,
+    "confusion_matrix": {
+      "tn": 13,
+      "fp": 1,
+      "fn": 1,
+      "tp": 12
+    }
+  },
+  "Optimized Logistic Regression v3 (Selected)": {
+    "pooled": {
+      "accuracy": 0.7857142857142857,
+      "balanced_accuracy": 0.7843137254901962,
+      "sensitivity_msa": 0.8333333333333334,
+      "specificity_pd": 0.7352941176470589,
+      "f1_score": 0.8,
+      "roc_auc": 0.8445669934640523,
+      "brier_score": 0.15628634949379347,
+      "confusion_matrix": {
+        "tn": 50,
+        "fp": 18,
+        "fn": 12,
+        "tp": 60,
+        "matrix": [
+          [
+            50,
+            18
+          ],
+          [
+            12,
+            60
+          ]
+        ]
+      }
+    },
+    "patient_level": {
+      "accuracy": 0.9259259259259259,
+      "balanced_accuracy": 0.9258241758241759,
+      "sensitivity_msa": 0.9230769230769231,
+      "specificity_pd": 0.9285714285714286,
+      "roc_auc": 0.9120879120879122,
+      "cohort_size": 27,
+      "confusion_matrix": {
+        "tn": 13,
+        "fp": 1,
+        "fn": 1,
+        "tp": 12,
+        "matrix": [
+          [
+            13,
+            1
+          ],
+          [
+            1,
+            12
+          ]
+        ]
+      }
+    }
+  },
+  "Heliyon 2023 Paper Baseline (6 Features, kNN k=5)": {
+    "pooled": {
+      "accuracy": 0.85,
+      "balanced_accuracy": 0.8489,
+      "sensitivity_msa": 0.9028,
+      "specificity_pd": 0.7941,
+      "f1_score": 0.8609,
+      "roc_auc": 0.896,
+      "brier_score": 0.123,
+      "confusion_matrix": {
+        "tn": 54,
+        "fp": 14,
+        "fn": 7,
+        "tp": 65,
+        "matrix": [
+          [
+            54,
+            14
+          ],
+          [
+            7,
+            65
+          ]
+        ]
+      }
+    },
+    "patient_level": {
+      "accuracy": 0.8889,
+      "balanced_accuracy": 0.8929,
+      "sensitivity_msa": 1.0,
+      "specificity_pd": 0.7857,
+      "roc_auc": 0.909,
+      "cohort_size": 27,
+      "confusion_matrix": {
+        "tn": 11,
+        "fp": 3,
+        "fn": 0,
+        "tp": 13,
+        "matrix": [
+          [
+            11,
+            3
+          ],
+          [
+            0,
+            13
+          ]
+        ]
+      }
+    }
+  }
+}
