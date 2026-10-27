@@ -483,7 +483,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     <strong className="text-[#f0f4f8]">Kinematic Feature Extraction:</strong> Computes 59 biomechanical indicators across opening/closing velocity, rhythm variability, sequence decay, and spectral energy.
                   </p>
                   <p>
-                    <strong className="text-[#f0f4f8]">Explainable Attributions:</strong> TreeSHAP attribution models quantify how each kinematic factor shifted the prediction toward Multiple System Atrophy (MSA) versus Parkinson's Disease (PD).
+                    <strong className="text-[#f0f4f8]">Explainable Attributions:</strong> LinearSHAP attribution models quantify exact closed-form log-odds shifts showing how each kinematic factor moved the prediction toward Multiple System Atrophy (MSA) versus Parkinson's Disease (PD).
                   </p>
                 </div>
               </div>
