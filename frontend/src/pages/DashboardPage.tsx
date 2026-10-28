@@ -1205,142 +1205,143 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         /* ========================================================================= */
         /* TAB 4: LOPO-CV BENCHMARK & CLINICAL VALIDATION STUDIO                     */
         /* ========================================================================= */
-        <div className="h-full flex flex-col min-h-0 bg-[#2a3139] border border-[#3a434d] rounded-2xl sm:rounded-3xl p-4 sm:p-5.5 shadow-2xl overflow-hidden">
+        <div className="h-full flex flex-col min-h-0 bg-[#2a3139] border border-[#3a434d] rounded-2xl sm:rounded-3xl p-3 sm:p-4 shadow-2xl overflow-hidden">
           {/* Header Bar */}
-          <div className="shrink-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#3a434d] pb-3">
+          <div className="shrink-0 flex items-center justify-between gap-2 border-b border-[#3a434d] pb-2">
             <div>
               <div className="flex items-center gap-2">
-                <BarChart3 className="w-5 h-5 text-[#c4cbd5]" />
-                <h2 className="font-serif text-lg sm:text-xl font-bold text-[#f0f4f8] tracking-tight">
+                <BarChart3 className="w-4 h-4 text-[#c4cbd5]" />
+                <h2 className="font-serif text-base sm:text-lg font-bold text-[#f0f4f8] tracking-tight">
                   LOPO-CV Validation & Model Benchmark Studio
                 </h2>
               </div>
-              <p className="text-xs text-[#87919b] mt-0.5">
+              <p className="text-[11px] text-[#87919b] mt-0.5">
                 Leave-One-Patient-Out Cross-Validation (27 isolated clinical folds) evaluated on 200 Hz triaxial kinematics.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 self-start sm:self-auto">
-              <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#343c46] border border-[#c4cbd5]/40 text-[#f0f4f8] shadow-sm flex items-center gap-1.5">
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-[#343c46] border border-[#c4cbd5]/40 text-[#f0f4f8] shadow-sm flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Zero Patient-Level Data Leakage</span>
               </span>
             </div>
           </div>
 
-          {/* Benchmark Body: Scrollable Container */}
-          <div className="flex-1 overflow-y-auto mt-3.5 space-y-4 pr-1 min-h-0">
-            {/* Top 4 Key Metric Cards */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-              <div className="p-3.5 rounded-2xl bg-[#14181d] border border-[#3a434d]">
-                <span className="text-[10px] font-mono uppercase text-[#87919b] tracking-wider">Patient Balanced Acc</span>
-                <div className="text-xl sm:text-2xl font-bold text-[#f0f4f8] mt-0.5">92.58%</div>
-                <div className="text-[11px] text-emerald-400 flex items-center gap-1 mt-1 font-mono">
-                  <TrendingUp className="w-3 h-3" />
-                  <span>+22.5% vs RF Baseline</span>
+          {/* Benchmark Body: True Zero-Scroll Single-Screen Container */}
+          <div className="flex-1 min-h-0 mt-2 flex flex-col justify-between overflow-hidden gap-2">
+            {/* Top 4 Key Metric Cards (Compact Sleek Bar) */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 shrink-0">
+              <div className="px-2.5 py-1.5 rounded-xl bg-[#14181d] border border-[#3a434d] shadow-sm flex flex-col justify-between">
+                <div className="flex items-center justify-between">
+                  <span className="text-[8.5px] font-mono uppercase text-[#87919b] tracking-wider">Patient Balanced Acc</span>
+                  <span className="text-[8.5px] text-emerald-400 font-mono flex items-center gap-0.5">
+                    <TrendingUp className="w-2.5 h-2.5" /> +22.5%
+                  </span>
                 </div>
+                <div className="text-base sm:text-lg font-bold font-mono text-[#f0f4f8] mt-0.5 leading-tight">92.58%</div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-[#14181d] border border-[#3a434d]">
-                <span className="text-[10px] font-mono uppercase text-[#87919b] tracking-wider">MSA Sensitivity (Recall)</span>
-                <div className="text-xl sm:text-2xl font-bold text-[#f0f4f8] mt-0.5">92.31%</div>
-                <div className="text-[11px] text-[#c4cbd5] mt-1 font-mono">
-                  12 of 13 Cases Correct
+              <div className="px-2.5 py-1.5 rounded-xl bg-[#14181d] border border-[#3a434d] shadow-sm flex flex-col justify-between">
+                <div className="flex items-center justify-between">
+                  <span className="text-[8.5px] font-mono uppercase text-[#87919b] tracking-wider">MSA Sensitivity (Recall)</span>
+                  <span className="text-[8.5px] text-[#c4cbd5] font-mono">12/13</span>
                 </div>
+                <div className="text-base sm:text-lg font-bold font-mono text-[#f0f4f8] mt-0.5 leading-tight">92.31%</div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-[#14181d] border border-[#3a434d]">
-                <span className="text-[10px] font-mono uppercase text-[#87919b] tracking-wider">PD Specificity</span>
-                <div className="text-xl sm:text-2xl font-bold text-[#f0f4f8] mt-0.5">92.86%</div>
-                <div className="text-[11px] text-[#c4cbd5] mt-1 font-mono">
-                  13 of 14 Cases Correct
+              <div className="px-2.5 py-1.5 rounded-xl bg-[#14181d] border border-[#3a434d] shadow-sm flex flex-col justify-between">
+                <div className="flex items-center justify-between">
+                  <span className="text-[8.5px] font-mono uppercase text-[#87919b] tracking-wider">PD Specificity</span>
+                  <span className="text-[8.5px] text-[#c4cbd5] font-mono">13/14</span>
                 </div>
+                <div className="text-base sm:text-lg font-bold font-mono text-[#f0f4f8] mt-0.5 leading-tight">92.86%</div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-[#14181d] border border-[#3a434d]">
-                <span className="text-[10px] font-mono uppercase text-[#87919b] tracking-wider">ROC-AUC Discrimination</span>
-                <div className="text-xl sm:text-2xl font-bold text-[#f0f4f8] mt-0.5">0.912</div>
-                <div className="text-[11px] text-emerald-400 mt-1 font-mono">
-                  High Clinical Separation
+              <div className="px-2.5 py-1.5 rounded-xl bg-[#14181d] border border-[#3a434d] shadow-sm flex flex-col justify-between">
+                <div className="flex items-center justify-between">
+                  <span className="text-[8.5px] font-mono uppercase text-[#87919b] tracking-wider">ROC-AUC Discrimination</span>
+                  <span className="text-[8.5px] text-emerald-400 font-mono">High Separation</span>
                 </div>
+                <div className="text-base sm:text-lg font-bold font-mono text-[#f0f4f8] mt-0.5 leading-tight">0.912</div>
               </div>
             </div>
 
-            {/* Split Screen Bento: Left (Table + Confusion Matrix) & Right (ROC Curves + Feature Ranking) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
+            {/* Split Screen Bento: Left (Table + Confusion Matrix) & Right (Expanded ROC Curves) - Fits 100% */}
+            <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-2 items-stretch overflow-hidden">
               {/* Left Column (7 cols): Model Comparison Table & Confusion Matrix */}
-              <div className="lg:col-span-7 space-y-3.5">
+              <div className="lg:col-span-7 flex flex-col justify-between h-full min-h-0 overflow-hidden gap-2">
                 {/* 1. Model Architecture Benchmark Table */}
-                <div className="p-4 rounded-2xl bg-[#14181d] border border-[#3a434d] shadow-lg">
-                  <div className="flex items-center justify-between border-b border-[#3a434d] pb-2.5 mb-3">
-                    <div className="flex items-center gap-2">
-                      <Cpu className="w-4 h-4 text-[#c4cbd5]" />
-                      <h3 className="font-serif text-sm font-bold text-[#f0f4f8]">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-[#14181d] border border-[#3a434d] shadow flex-1 flex flex-col justify-between min-h-0 overflow-hidden">
+                  <div className="flex items-center justify-between border-b border-[#3a434d] pb-1 mb-1 shrink-0">
+                    <div className="flex items-center gap-1.5">
+                      <Cpu className="w-3.5 h-3.5 text-[#c4cbd5]" />
+                      <h3 className="font-serif text-xs sm:text-sm font-bold text-[#f0f4f8]">
                         Architecture Benchmark (27 LOPO-CV Folds)
                       </h3>
                     </div>
-                    <span className="text-[10px] font-mono text-[#87919b]">Standardized Protocol</span>
+                    <span className="text-[8.5px] font-mono text-[#87919b]">Standardized Protocol</span>
                   </div>
 
-                  <div className="overflow-x-auto">
+                  <div className="overflow-x-auto flex-1 min-h-0 flex flex-col justify-center">
                     <table className="w-full text-left text-xs">
                       <thead>
-                        <tr className="border-b border-[#3a434d] text-[10px] font-mono text-[#87919b] uppercase">
-                          <th className="pb-2">Architecture</th>
-                          <th className="pb-2 text-center">Features</th>
-                          <th className="pb-2 text-center">Balanced Acc</th>
-                          <th className="pb-2 text-center">MSA Recall</th>
-                          <th className="pb-2 text-center">PD Spec</th>
-                          <th className="pb-2 text-right">AUC</th>
+                        <tr className="border-b border-[#3a434d] text-[9px] font-mono text-[#87919b] uppercase">
+                          <th className="pb-1">Architecture</th>
+                          <th className="pb-1 text-center">Features</th>
+                          <th className="pb-1 text-center">Balanced Acc</th>
+                          <th className="pb-1 text-center">MSA Recall</th>
+                          <th className="pb-1 text-center">PD Spec</th>
+                          <th className="pb-1 text-right">AUC</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-[#3a434d]/50 text-[11px]">
+                      <tbody className="divide-y divide-[#3a434d]/40 text-[10.5px]">
                         <tr className="bg-[#343c46]/30 font-semibold text-[#f0f4f8]">
-                          <td className="py-2.5 font-bold flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                            <span>Optimized Logistic Regression (v3)</span>
-                            <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">
+                          <td className="py-1 font-bold flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                            <span className="truncate">Optimized Logistic Regression (v3)</span>
+                            <span className="text-[8px] font-mono px-1 py-0.2 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 shrink-0">
                               Primary
                             </span>
                           </td>
-                          <td className="py-2.5 text-center font-mono text-[#c4cbd5]">59</td>
-                          <td className="py-2.5 text-center font-mono text-emerald-300 font-bold">92.58%</td>
-                          <td className="py-2.5 text-center font-mono text-[#f0f4f8]">92.31%</td>
-                          <td className="py-2.5 text-center font-mono text-[#f0f4f8]">92.86%</td>
-                          <td className="py-2.5 text-right font-mono font-bold text-emerald-300">0.912</td>
+                          <td className="py-1 text-center font-mono text-[#c4cbd5]">59</td>
+                          <td className="py-1 text-center font-mono text-emerald-300 font-bold">92.58%</td>
+                          <td className="py-1 text-center font-mono text-[#f0f4f8]">92.31%</td>
+                          <td className="py-1 text-center font-mono text-[#f0f4f8]">92.86%</td>
+                          <td className="py-1 text-right font-mono font-bold text-emerald-300">0.912</td>
                         </tr>
                         <tr className="text-[#c4cbd5]">
-                          <td className="py-2.5 flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-cyan-400" />
-                            <span>Heliyon 2023 Paper Baseline</span>
+                          <td className="py-1 flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-cyan-400 shrink-0" />
+                            <span className="truncate">Heliyon 2023 Paper Baseline</span>
                           </td>
-                          <td className="py-2.5 text-center font-mono text-[#87919b]">6</td>
-                          <td className="py-2.5 text-center font-mono">89.29%</td>
-                          <td className="py-2.5 text-center font-mono">100.0%</td>
-                          <td className="py-2.5 text-center font-mono">78.57%</td>
-                          <td className="py-2.5 text-right font-mono text-cyan-300">0.909</td>
+                          <td className="py-1 text-center font-mono text-[#87919b]">6</td>
+                          <td className="py-1 text-center font-mono">89.29%</td>
+                          <td className="py-1 text-center font-mono">100.0%</td>
+                          <td className="py-1 text-center font-mono">78.57%</td>
+                          <td className="py-1 text-right font-mono text-cyan-300">0.909</td>
                         </tr>
                         <tr className="text-[#87919b]">
-                          <td className="py-2.5 flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-purple-400" />
-                            <span>Random Forest (Baseline)</span>
+                          <td className="py-1 flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-purple-400 shrink-0" />
+                            <span className="truncate">Random Forest (Baseline)</span>
                           </td>
-                          <td className="py-2.5 text-center font-mono">45</td>
-                          <td className="py-2.5 text-center font-mono">70.05%</td>
-                          <td className="py-2.5 text-center font-mono">69.23%</td>
-                          <td className="py-2.5 text-center font-mono">71.43%</td>
-                          <td className="py-2.5 text-right font-mono text-purple-300">0.758</td>
+                          <td className="py-1 text-center font-mono">45</td>
+                          <td className="py-1 text-center font-mono">70.05%</td>
+                          <td className="py-1 text-center font-mono">69.23%</td>
+                          <td className="py-1 text-center font-mono">71.43%</td>
+                          <td className="py-1 text-right font-mono text-purple-300">0.758</td>
                         </tr>
                         <tr className="text-[#87919b]">
-                          <td className="py-2.5 flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-amber-400" />
-                            <span>K-Nearest Neighbors (k=5)</span>
+                          <td className="py-1 flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
+                            <span className="truncate">K-Nearest Neighbors (k=5)</span>
                           </td>
-                          <td className="py-2.5 text-center font-mono">45</td>
-                          <td className="py-2.5 text-center font-mono">63.19%</td>
-                          <td className="py-2.5 text-center font-mono">76.92%</td>
-                          <td className="py-2.5 text-center font-mono">50.00%</td>
-                          <td className="py-2.5 text-right font-mono text-amber-300">0.720</td>
+                          <td className="py-1 text-center font-mono">45</td>
+                          <td className="py-1 text-center font-mono">63.19%</td>
+                          <td className="py-1 text-center font-mono">76.92%</td>
+                          <td className="py-1 text-center font-mono">50.00%</td>
+                          <td className="py-1 text-right font-mono text-amber-300">0.720</td>
                         </tr>
                       </tbody>
                     </table>
@@ -1348,287 +1349,294 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 </div>
 
                 {/* 2. Patient-Level Confusion Matrix (27 Folds) */}
-                <div className="p-4 rounded-2xl bg-[#14181d] border border-[#3a434d] shadow-lg">
-                  <div className="flex items-center justify-between border-b border-[#3a434d] pb-2.5 mb-3">
-                    <div className="flex items-center gap-2">
-                      <Layers className="w-4 h-4 text-[#c4cbd5]" />
-                      <h3 className="font-serif text-sm font-bold text-[#f0f4f8]">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-[#14181d] border border-[#3a434d] shadow shrink-0">
+                  <div className="flex items-center justify-between border-b border-[#3a434d] pb-1 mb-1.5">
+                    <div className="flex items-center gap-1.5">
+                      <Layers className="w-3.5 h-3.5 text-[#c4cbd5]" />
+                      <h3 className="font-serif text-xs sm:text-sm font-bold text-[#f0f4f8]">
                         27-Patient Clinical Confusion Matrix (v3.0)
                       </h3>
                     </div>
-                    <span className="text-[10px] font-mono text-emerald-400">92.59% Overall (25/27)</span>
+                    <span className="text-[9px] font-mono text-emerald-400 font-bold">92.59% Overall (25/27)</span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3 text-center">
-                    <div className="p-3 rounded-xl bg-[#2a3139]/70 border border-[#3a434d]">
-                      <div className="text-[10px] font-mono text-[#87919b] uppercase">Actual PD (14 Patients)</div>
-                      <div className="grid grid-cols-2 gap-2 mt-2">
-                        <div className="p-2 rounded-lg bg-emerald-950/40 border border-emerald-800/60">
-                          <div className="text-base font-bold text-emerald-400">13 (92.9%)</div>
-                          <div className="text-[10px] text-emerald-300 font-mono">True Negative (TN)</div>
+                  <div className="grid grid-cols-2 gap-1.5 text-center">
+                    <div className="p-1.5 rounded-lg bg-[#2a3139]/70 border border-[#3a434d]">
+                      <div className="text-[8.5px] font-mono text-[#87919b] uppercase">Actual PD (14 Patients)</div>
+                      <div className="grid grid-cols-2 gap-1 mt-1">
+                        <div className="p-1 rounded bg-emerald-950/40 border border-emerald-800/60">
+                          <div className="text-xs sm:text-sm font-bold text-emerald-400">13 (92.9%)</div>
+                          <div className="text-[7.5px] text-emerald-300 font-mono">TN (Correct PD)</div>
                         </div>
-                        <div className="p-2 rounded-lg bg-red-950/30 border border-red-900/40">
-                          <div className="text-base font-bold text-red-400">1 (7.1%)</div>
-                          <div className="text-[10px] text-red-300 font-mono">False Positive (FP)</div>
+                        <div className="p-1 rounded bg-red-950/30 border border-red-900/40">
+                          <div className="text-xs sm:text-sm font-bold text-red-400">1 (7.1%)</div>
+                          <div className="text-[7.5px] text-red-300 font-mono">FP (Misclassified)</div>
                         </div>
                       </div>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-[#2a3139]/70 border border-[#3a434d]">
-                      <div className="text-[10px] font-mono text-[#87919b] uppercase">Actual MSA (13 Patients)</div>
-                      <div className="grid grid-cols-2 gap-2 mt-2">
-                        <div className="p-2 rounded-lg bg-red-950/30 border border-red-900/40">
-                          <div className="text-base font-bold text-red-400">1 (7.7%)</div>
-                          <div className="text-[10px] text-red-300 font-mono">False Negative (FN)</div>
+                    <div className="p-1.5 rounded-lg bg-[#2a3139]/70 border border-[#3a434d]">
+                      <div className="text-[8.5px] font-mono text-[#87919b] uppercase">Actual MSA (13 Patients)</div>
+                      <div className="grid grid-cols-2 gap-1 mt-1">
+                        <div className="p-1 rounded bg-red-950/30 border border-red-900/40">
+                          <div className="text-xs sm:text-sm font-bold text-red-400">1 (7.7%)</div>
+                          <div className="text-[7.5px] text-red-300 font-mono">FN (Misclassified)</div>
                         </div>
-                        <div className="p-2 rounded-lg bg-emerald-950/40 border border-emerald-800/60">
-                          <div className="text-base font-bold text-emerald-400">12 (92.3%)</div>
-                          <div className="text-[10px] text-emerald-300 font-mono">True Positive (TP)</div>
+                        <div className="p-1 rounded bg-emerald-950/40 border border-emerald-800/60">
+                          <div className="text-xs sm:text-sm font-bold text-emerald-400">12 (92.3%)</div>
+                          <div className="text-[7.5px] text-emerald-300 font-mono">TP (Correct MSA)</div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <p className="text-[10px] text-[#87919b] mt-2 text-center">
-                    Single FN (MSABM23) presented with high-amplitude parkinsonian tremor with minimal ataxia; flagged by uncertainty protocol.
+                  <p className="text-[8px] text-[#87919b] mt-0.5 text-center truncate">
+                    Single FN (MSABM23) presented with high-amplitude tremor with minimal ataxia; flagged by uncertainty protocol.
                   </p>
                 </div>
               </div>
 
               {/* Right Column (5 cols): Expanded Full-Height Interactive ROC-AUC Curves */}
-              <div className="lg:col-span-5 flex flex-col">
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#14181d] border border-[#3a434d] shadow-xl flex flex-col justify-between h-full">
-                  <div>
+              <div className="lg:col-span-5 flex flex-col h-full min-h-0 overflow-hidden">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-[#14181d] border border-[#3a434d] shadow-xl flex flex-col justify-between h-full min-h-0 overflow-hidden">
+                  <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
                     {/* Header with Title and Model Filter Pills */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3a434d] pb-3 mb-3 gap-2">
-                      <div className="flex items-center gap-2">
-                        <TrendingUp className="w-5 h-5 text-emerald-400" />
+                    <div className="flex items-center justify-between border-b border-[#3a434d] pb-1 mb-1 gap-1 shrink-0">
+                      <div className="flex items-center gap-1.5">
+                        <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
                         <div>
-                          <h3 className="font-serif text-sm sm:text-base font-bold text-[#f0f4f8]">
+                          <h3 className="font-serif text-xs sm:text-sm font-bold text-[#f0f4f8] leading-none">
                             Comparative ROC-AUC Curves
                           </h3>
-                          <p className="text-[10px] font-mono text-[#87919b]">
-                            27-Fold LOPO-CV Multi-Model Discrimination
+                          <p className="text-[8px] font-mono text-[#87919b] mt-0.5">
+                            27-Fold LOPO-CV Discrimination
                           </p>
                         </div>
                       </div>
-                      <div className="flex flex-wrap items-center gap-1 text-[10px] font-mono">
+                      <div className="flex flex-wrap items-center gap-1 text-[8px] font-mono">
                         <button
                           type="button"
                           onClick={() => setSelectedRocModel('all')}
-                          className={`px-2 py-1 rounded-md transition-all ${selectedRocModel === 'all' ? 'bg-[#f0f4f8] text-[#14181d] font-bold shadow' : 'bg-[#1f2730] text-[#87919b] hover:text-[#f0f4f8]'}`}
+                          className={`px-1.5 py-0.5 rounded transition-all cursor-pointer ${selectedRocModel === 'all' ? 'bg-[#f0f4f8] text-[#14181d] font-bold shadow' : 'bg-[#1f2730] text-[#87919b] hover:text-[#f0f4f8]'}`}
                         >
-                          All Models
+                          All
                         </button>
                         <button
                           type="button"
                           onClick={() => setSelectedRocModel('v3')}
-                          className={`px-2 py-1 rounded-md transition-all ${selectedRocModel === 'v3' ? 'bg-emerald-400 text-[#14181d] font-bold shadow' : 'bg-[#1f2730] text-[#87919b] hover:text-emerald-400'}`}
+                          className={`px-1.5 py-0.5 rounded transition-all cursor-pointer ${selectedRocModel === 'v3' ? 'bg-emerald-400 text-[#14181d] font-bold shadow' : 'bg-[#1f2730] text-[#87919b] hover:text-emerald-400'}`}
                         >
                           v3 (0.912)
                         </button>
                         <button
                           type="button"
                           onClick={() => setSelectedRocModel('heliyon')}
-                          className={`px-2 py-1 rounded-md transition-all ${selectedRocModel === 'heliyon' ? 'bg-cyan-400 text-[#14181d] font-bold shadow' : 'bg-[#1f2730] text-[#87919b] hover:text-cyan-400'}`}
+                          className={`px-1.5 py-0.5 rounded transition-all cursor-pointer ${selectedRocModel === 'heliyon' ? 'bg-cyan-400 text-[#14181d] font-bold shadow' : 'bg-[#1f2730] text-[#87919b] hover:text-cyan-400'}`}
                         >
                           Paper (0.909)
                         </button>
                         <button
                           type="button"
                           onClick={() => setSelectedRocModel('rf')}
-                          className={`px-2 py-1 rounded-md transition-all ${selectedRocModel === 'rf' ? 'bg-purple-400 text-[#14181d] font-bold shadow' : 'bg-[#1f2730] text-[#87919b] hover:text-purple-400'}`}
+                          className={`px-1.5 py-0.5 rounded transition-all cursor-pointer ${selectedRocModel === 'rf' ? 'bg-purple-400 text-[#14181d] font-bold shadow' : 'bg-[#1f2730] text-[#87919b] hover:text-purple-400'}`}
                         >
                           RF (0.758)
                         </button>
                         <button
                           type="button"
                           onClick={() => setSelectedRocModel('knn')}
-                          className={`px-2 py-1 rounded-md transition-all ${selectedRocModel === 'knn' ? 'bg-amber-400 text-[#14181d] font-bold shadow' : 'bg-[#1f2730] text-[#87919b] hover:text-amber-400'}`}
+                          className={`px-1.5 py-0.5 rounded transition-all cursor-pointer ${selectedRocModel === 'knn' ? 'bg-amber-400 text-[#14181d] font-bold shadow' : 'bg-[#1f2730] text-[#87919b] hover:text-amber-400'}`}
                         >
                           KNN (0.720)
                         </button>
                       </div>
                     </div>
 
-                    {/* Expanded Tall SVG ROC Plot Container */}
-                    <div className="relative py-3 px-2 bg-[#0c1014] rounded-xl border border-[#3a434d] shadow-inner">
-                      <svg viewBox="0 0 420 290" className="w-full h-[340px] sm:h-[380px] md:h-[410px]">
-                        {/* Horizontal Grid Lines */}
-                        <line x1="45" y1="28" x2="400" y2="28" stroke="#1f2730" strokeDasharray="3 3" />
-                        <line x1="45" y1="70" x2="400" y2="70" stroke="#1f2730" strokeDasharray="3 3" />
-                        <line x1="45" y1="113" x2="400" y2="113" stroke="#1f2730" strokeDasharray="3 3" />
-                        <line x1="45" y1="155" x2="400" y2="155" stroke="#1f2730" strokeDasharray="3 3" />
-                        <line x1="45" y1="198" x2="400" y2="198" stroke="#1f2730" strokeDasharray="3 3" />
-                        <line x1="45" y1="240" x2="400" y2="240" stroke="#1f2730" strokeDasharray="3 3" />
+                    {/* SVG ROC Plot Container (Fills exact remaining height, zero scroll) */}
+                    <div className="relative p-1 bg-[#0c1014] rounded-lg border border-[#3a434d] shadow-inner flex-1 flex flex-col justify-between min-h-0 overflow-hidden">
+                      <div className="flex-1 min-h-0 flex items-center justify-center w-full">
+                        <svg viewBox="0 0 420 230" className="w-full h-full max-h-[170px] object-contain">
+                          {/* Horizontal Grid Lines */}
+                          <line x1="45" y1="20" x2="400" y2="20" stroke="#1f2730" strokeDasharray="3 3" />
+                          <line x1="45" y1="54" x2="400" y2="54" stroke="#1f2730" strokeDasharray="3 3" />
+                          <line x1="45" y1="88" x2="400" y2="88" stroke="#1f2730" strokeDasharray="3 3" />
+                          <line x1="45" y1="122" x2="400" y2="122" stroke="#1f2730" strokeDasharray="3 3" />
+                          <line x1="45" y1="156" x2="400" y2="156" stroke="#1f2730" strokeDasharray="3 3" />
+                          <line x1="45" y1="190" x2="400" y2="190" stroke="#1f2730" strokeDasharray="3 3" />
 
-                        {/* Vertical Grid Lines */}
-                        <line x1="116" y1="28" x2="116" y2="240" stroke="#1f2730" strokeDasharray="3 3" />
-                        <line x1="187" y1="28" x2="187" y2="240" stroke="#1f2730" strokeDasharray="3 3" />
-                        <line x1="258" y1="28" x2="258" y2="240" stroke="#1f2730" strokeDasharray="3 3" />
-                        <line x1="329" y1="28" x2="329" y2="240" stroke="#1f2730" strokeDasharray="3 3" />
+                          {/* Vertical Grid Lines */}
+                          <line x1="116" y1="20" x2="116" y2="190" stroke="#1f2730" strokeDasharray="3 3" />
+                          <line x1="187" y1="20" x2="187" y2="190" stroke="#1f2730" strokeDasharray="3 3" />
+                          <line x1="258" y1="20" x2="258" y2="190" stroke="#1f2730" strokeDasharray="3 3" />
+                          <line x1="329" y1="20" x2="329" y2="190" stroke="#1f2730" strokeDasharray="3 3" />
 
-                        {/* Y-Axis Labels (Sensitivity / TPR) */}
-                        <text x="38" y="32" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="end">1.0</text>
-                        <text x="38" y="74" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="end">0.8</text>
-                        <text x="38" y="117" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="end">0.6</text>
-                        <text x="38" y="159" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="end">0.4</text>
-                        <text x="38" y="202" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="end">0.2</text>
-                        <text x="38" y="244" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="end">0.0</text>
+                          {/* Y-Axis Labels (Sensitivity / TPR) */}
+                          <text x="38" y="23" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="end">1.0</text>
+                          <text x="38" y="57" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="end">0.8</text>
+                          <text x="38" y="91" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="end">0.6</text>
+                          <text x="38" y="125" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="end">0.4</text>
+                          <text x="38" y="159" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="end">0.2</text>
+                          <text x="38" y="193" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="end">0.0</text>
 
-                        {/* X-Axis Labels (1 - Specificity / FPR) */}
-                        <text x="45" y="258" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="middle">0.0</text>
-                        <text x="116" y="258" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="middle">0.2</text>
-                        <text x="187" y="258" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="middle">0.4</text>
-                        <text x="258" y="258" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="middle">0.6</text>
-                        <text x="329" y="258" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="middle">0.8</text>
-                        <text x="400" y="258" fill="#87919b" fontSize="10" fontFamily="monospace" textAnchor="middle">1.0</text>
+                          {/* X-Axis Labels (1 - Specificity / FPR) */}
+                          <text x="45" y="204" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="middle">0.0</text>
+                          <text x="116" y="204" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="middle">0.2</text>
+                          <text x="187" y="204" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="middle">0.4</text>
+                          <text x="258" y="204" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="middle">0.6</text>
+                          <text x="329" y="204" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="middle">0.8</text>
+                          <text x="400" y="204" fill="#87919b" fontSize="8" fontFamily="monospace" textAnchor="middle">1.0</text>
 
-                        {/* Axis Titles */}
-                        <text
-                          x="-134"
-                          y="14"
-                          transform="rotate(-90)"
-                          fill="#c4cbd5"
-                          fontSize="10"
-                          fontFamily="sans-serif"
-                          fontWeight="bold"
-                          textAnchor="middle"
-                        >
-                          Sensitivity / True Positive Rate (TPR)
-                        </text>
-                        <text
-                          x="222"
-                          y="278"
-                          fill="#c4cbd5"
-                          fontSize="10"
-                          fontFamily="sans-serif"
-                          fontWeight="bold"
-                          textAnchor="middle"
-                        >
-                          1 - Specificity / False Positive Rate (FPR)
-                        </text>
+                          {/* Axis Titles */}
+                          <text
+                            x="-105"
+                            y="14"
+                            transform="rotate(-90)"
+                            fill="#c4cbd5"
+                            fontSize="8"
+                            fontFamily="sans-serif"
+                            fontWeight="bold"
+                            textAnchor="middle"
+                          >
+                            Sensitivity (TPR)
+                          </text>
+                          <text
+                            x="222"
+                            y="220"
+                            fill="#c4cbd5"
+                            fontSize="8"
+                            fontFamily="sans-serif"
+                            fontWeight="bold"
+                            textAnchor="middle"
+                          >
+                            1 - Specificity (FPR)
+                          </text>
 
-                        {/* Solid Main Axes */}
-                        <line x1="45" y1="240" x2="400" y2="240" stroke="#3a434d" strokeWidth="1.8" />
-                        <line x1="45" y1="28" x2="45" y2="240" stroke="#3a434d" strokeWidth="1.8" />
+                          {/* Solid Main Axes */}
+                          <line x1="45" y1="190" x2="400" y2="190" stroke="#3a434d" strokeWidth="1.5" />
+                          <line x1="45" y1="20" x2="45" y2="190" stroke="#3a434d" strokeWidth="1.5" />
 
-                        {/* Chance Diagonal (y = x) */}
-                        <line x1="45" y1="240" x2="400" y2="28" stroke="#3a434d" strokeDasharray="5 5" strokeWidth="1.5" />
-                        <text x="290" y="105" fill="#586370" fontSize="9" fontFamily="monospace" transform="rotate(-31 290 105)">
-                          Chance (AUC: 0.500)
-                        </text>
+                          {/* Chance Diagonal (y = x) */}
+                          <line x1="45" y1="190" x2="400" y2="20" stroke="#3a434d" strokeDasharray="4 4" strokeWidth="1.2" />
+                          <text x="280" y="86" fill="#586370" fontSize="8" fontFamily="monospace" transform="rotate(-26 280 86)">
+                            Chance (AUC: 0.50)
+                          </text>
 
-                        {/* Curve 4: Baseline KNN (Amber, AUC = 0.720) */}
-                        {(selectedRocModel === 'all' || selectedRocModel === 'knn') && (
-                          <path
-                            d="M 45,240 C 95,200 160,165 240,120 C 300,90 355,50 400,28"
-                            fill="none"
-                            stroke="#F59E0B"
-                            strokeWidth={selectedRocModel === 'knn' ? '3.5' : '2'}
-                            strokeOpacity={selectedRocModel === 'knn' || selectedRocModel === 'all' ? 1 : 0.2}
-                          />
-                        )}
+                          {/* Curve 4: Baseline KNN (Amber, AUC = 0.720) */}
+                          {(selectedRocModel === 'all' || selectedRocModel === 'knn') && (
+                            <path
+                              d="M 45,190 C 95,158 160,130 240,94 C 300,70 355,38 400,20"
+                              fill="none"
+                              stroke="#F59E0B"
+                              strokeWidth={selectedRocModel === 'knn' ? '3' : '1.8'}
+                              strokeOpacity={selectedRocModel === 'knn' || selectedRocModel === 'all' ? 1 : 0.2}
+                            />
+                          )}
 
-                        {/* Curve 3: Baseline Random Forest (Purple, AUC = 0.758) */}
-                        {(selectedRocModel === 'all' || selectedRocModel === 'rf') && (
-                          <path
-                            d="M 45,240 C 75,175 125,135 205,95 C 275,65 345,40 400,28"
-                            fill="none"
-                            stroke="#A855F7"
-                            strokeWidth={selectedRocModel === 'rf' ? '3.5' : '2.2'}
-                            strokeOpacity={selectedRocModel === 'rf' || selectedRocModel === 'all' ? 1 : 0.2}
-                          />
-                        )}
+                          {/* Curve 3: Baseline Random Forest (Purple, AUC = 0.758) */}
+                          {(selectedRocModel === 'all' || selectedRocModel === 'rf') && (
+                            <path
+                              d="M 45,190 C 75,138 125,106 205,72 C 275,48 345,30 400,20"
+                              fill="none"
+                              stroke="#A855F7"
+                              strokeWidth={selectedRocModel === 'rf' ? '3' : '2'}
+                              strokeOpacity={selectedRocModel === 'rf' || selectedRocModel === 'all' ? 1 : 0.2}
+                            />
+                          )}
 
-                        {/* Curve 2: Heliyon 2023 Paper Baseline (Cyan, AUC = 0.909) */}
-                        {(selectedRocModel === 'all' || selectedRocModel === 'heliyon') && (
-                          <path
-                            d="M 45,240 C 52,85 85,48 170,38 C 255,32 340,30 400,28"
-                            fill="none"
-                            stroke="#06B6D4"
-                            strokeWidth={selectedRocModel === 'heliyon' ? '4' : '2.8'}
-                            strokeOpacity={selectedRocModel === 'heliyon' || selectedRocModel === 'all' ? 1 : 0.2}
-                          />
-                        )}
+                          {/* Curve 2: Heliyon 2023 Paper Baseline (Cyan, AUC = 0.909) */}
+                          {(selectedRocModel === 'all' || selectedRocModel === 'heliyon') && (
+                            <path
+                              d="M 45,190 C 52,65 85,36 170,28 C 255,24 340,22 400,20"
+                              fill="none"
+                              stroke="#06B6D4"
+                              strokeWidth={selectedRocModel === 'heliyon' ? '3.2' : '2.2'}
+                              strokeOpacity={selectedRocModel === 'heliyon' || selectedRocModel === 'all' ? 1 : 0.2}
+                            />
+                          )}
 
-                        {/* Curve 1: Optimized Logistic Regression v3 (Emerald, AUC = 0.912) */}
-                        {(selectedRocModel === 'all' || selectedRocModel === 'v3') && (
-                          <path
-                            d="M 45,240 C 49,68 76,38 150,33 C 235,30 320,29 400,28"
-                            fill="none"
-                            stroke="#10B981"
-                            strokeWidth={selectedRocModel === 'v3' ? '4.5' : '3.6'}
-                            strokeLinecap="round"
-                            className="drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]"
-                          />
-                        )}
-                      </svg>
+                          {/* Curve 1: Optimized Logistic Regression v3 (Emerald, AUC = 0.912) */}
+                          {(selectedRocModel === 'all' || selectedRocModel === 'v3') && (
+                            <path
+                              d="M 45,190 C 49,52 76,28 150,24 C 235,22 320,21 400,20"
+                              fill="none"
+                              stroke="#10B981"
+                              strokeWidth={selectedRocModel === 'v3' ? '3.8' : '2.8'}
+                              strokeLinecap="round"
+                              className="drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]"
+                            />
+                          )}
+                        </svg>
+                      </div>
 
-                      {/* Interactive Clinical Legend */}
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 px-2 border-t border-[#1f2730]">
+                      {/* Interactive Clinical Legend (Compact 4-pills) */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 pt-1 px-0.5 border-t border-[#1f2730] shrink-0">
                         <button
                           type="button"
                           onClick={() => setSelectedRocModel('v3')}
-                          className={`p-2 rounded-lg text-left transition-all border ${selectedRocModel === 'v3' ? 'bg-emerald-950/60 border-emerald-500' : 'bg-[#14181d] border-[#2a3139] hover:border-emerald-800'}`}
+                          className={`p-1 rounded text-left transition-all border cursor-pointer ${selectedRocModel === 'v3' ? 'bg-emerald-950/60 border-emerald-500' : 'bg-[#14181d] border-[#2a3139] hover:border-emerald-800'}`}
                         >
-                          <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-xs">
-                            <span className="w-2.5 h-1 bg-emerald-400 rounded-full" />
-                            <span>LR v3.0</span>
+                          <div className="flex items-center justify-between text-emerald-400 font-bold text-[9.5px]">
+                            <div className="flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+                              <span>LR v3.0</span>
+                            </div>
+                            <span className="font-mono text-[#f0f4f8]">0.912</span>
                           </div>
-                          <div className="text-[10px] font-mono text-[#f0f4f8] mt-0.5">AUC: 0.912</div>
-                          <div className="text-[9px] text-[#87919b]">Sens: 92.3% | Spec: 92.9%</div>
+                          <div className="text-[7.5px] text-[#87919b] truncate">Sens: 92% • Spec: 93%</div>
                         </button>
 
                         <button
                           type="button"
                           onClick={() => setSelectedRocModel('heliyon')}
-                          className={`p-2 rounded-lg text-left transition-all border ${selectedRocModel === 'heliyon' ? 'bg-cyan-950/60 border-cyan-500' : 'bg-[#14181d] border-[#2a3139] hover:border-cyan-800'}`}
+                          className={`p-1 rounded text-left transition-all border cursor-pointer ${selectedRocModel === 'heliyon' ? 'bg-cyan-950/60 border-cyan-500' : 'bg-[#14181d] border-[#2a3139] hover:border-cyan-800'}`}
                         >
-                          <div className="flex items-center gap-1.5 text-cyan-400 font-bold text-xs">
-                            <span className="w-2.5 h-1 bg-cyan-400 rounded-full" />
-                            <span>Paper Baseline</span>
+                          <div className="flex items-center justify-between text-cyan-400 font-bold text-[9.5px]">
+                            <div className="flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full" />
+                              <span>Paper</span>
+                            </div>
+                            <span className="font-mono text-[#f0f4f8]">0.909</span>
                           </div>
-                          <div className="text-[10px] font-mono text-[#f0f4f8] mt-0.5">AUC: 0.909</div>
-                          <div className="text-[9px] text-[#87919b]">Sens: 100% | Spec: 78.6%</div>
+                          <div className="text-[7.5px] text-[#87919b] truncate">Sens: 100% • Spec: 79%</div>
                         </button>
 
                         <button
                           type="button"
                           onClick={() => setSelectedRocModel('rf')}
-                          className={`p-2 rounded-lg text-left transition-all border ${selectedRocModel === 'rf' ? 'bg-purple-950/60 border-purple-500' : 'bg-[#14181d] border-[#2a3139] hover:border-purple-800'}`}
+                          className={`p-1 rounded text-left transition-all border cursor-pointer ${selectedRocModel === 'rf' ? 'bg-purple-950/60 border-purple-500' : 'bg-[#14181d] border-[#2a3139] hover:border-purple-800'}`}
                         >
-                          <div className="flex items-center gap-1.5 text-purple-400 font-bold text-xs">
-                            <span className="w-2.5 h-1 bg-purple-400 rounded-full" />
-                            <span>Random Forest</span>
+                          <div className="flex items-center justify-between text-purple-400 font-bold text-[9.5px]">
+                            <div className="flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 bg-purple-400 rounded-full" />
+                              <span>RF</span>
+                            </div>
+                            <span className="font-mono text-[#f0f4f8]">0.758</span>
                           </div>
-                          <div className="text-[10px] font-mono text-[#f0f4f8] mt-0.5">AUC: 0.758</div>
-                          <div className="text-[9px] text-[#87919b]">Sens: 69.2% | Spec: 71.4%</div>
+                          <div className="text-[7.5px] text-[#87919b] truncate">Sens: 69% • Spec: 71%</div>
                         </button>
 
                         <button
                           type="button"
                           onClick={() => setSelectedRocModel('knn')}
-                          className={`p-2 rounded-lg text-left transition-all border ${selectedRocModel === 'knn' ? 'bg-amber-950/60 border-amber-500' : 'bg-[#14181d] border-[#2a3139] hover:border-amber-800'}`}
+                          className={`p-1 rounded text-left transition-all border cursor-pointer ${selectedRocModel === 'knn' ? 'bg-amber-950/60 border-amber-500' : 'bg-[#14181d] border-[#2a3139] hover:border-amber-800'}`}
                         >
-                          <div className="flex items-center gap-1.5 text-amber-400 font-bold text-xs">
-                            <span className="w-2.5 h-1 bg-amber-400 rounded-full" />
-                            <span>KNN Baseline</span>
+                          <div className="flex items-center justify-between text-amber-400 font-bold text-[9.5px]">
+                            <div className="flex items-center gap-1">
+                              <span className="w-1.5 h-1.5 bg-amber-400 rounded-full" />
+                              <span>KNN</span>
+                            </div>
+                            <span className="font-mono text-[#f0f4f8]">0.720</span>
                           </div>
-                          <div className="text-[10px] font-mono text-[#f0f4f8] mt-0.5">AUC: 0.720</div>
-                          <div className="text-[9px] text-[#87919b]">Sens: 76.9% | Spec: 50.0%</div>
+                          <div className="text-[7.5px] text-[#87919b] truncate">Sens: 77% • Spec: 50%</div>
                         </button>
                       </div>
                     </div>
                   </div>
 
-                  {/* Scientific Summary Callout */}
-                  <div className="p-3 mt-3 rounded-xl bg-[#0c1014] border border-[#2a3139] text-xs text-[#87919b]">
-                    <div className="flex items-center gap-1.5 text-emerald-400 font-semibold mb-1">
-                      <ShieldCheck className="w-4 h-4" />
-                      <span>Clinical Discrimination Superiority</span>
-                    </div>
-                    <p className="text-[11px] leading-relaxed">
-                      Evaluated strictly under 27-fold Leave-One-Patient-Out Cross-Validation (LOPO-CV). NeuroScope's regularized Logistic Regression v3.0 achieves the highest operating trade-off (<strong className="text-[#f0f4f8]">AUC: 0.912</strong>), delivering superior specificity (92.9%) compared to the Heliyon paper baseline (78.6%) without sacrificing MSA sensitivity.
+                  {/* Scientific Summary Callout (Sleek Single Strip) */}
+                  <div className="p-1.5 mt-1.5 rounded-lg bg-[#0c1014] border border-[#2a3139] text-[9.5px] text-[#87919b] flex items-center gap-1.5 shrink-0">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <p className="text-[9.5px] leading-tight text-[#87919b] truncate">
+                      27-Fold LOPO-CV strictly validates zero patient leakage. Regularized LR v3.0 achieves dominant clinical separation (AUC: 0.912, Balanced Acc: 92.58%).
                     </p>
                   </div>
                 </div>

@@ -54,8 +54,8 @@ const MainAppContent: React.FC = () => {
           </footer>
         </>
       ) : (
-        /* 2. Authenticated Application: Full-width research workspace with generous navbar clearance */
-        <main className="flex-1 w-[99%] max-w-[1920px] mx-auto pt-[114px] sm:pt-[124px] pb-3 px-2 sm:px-4 overflow-hidden flex flex-col min-h-0">
+        /* 2. Authenticated Application: Full-width research workspace with compact navbar clearance for zero-scroll viewports */
+        <main className="flex-1 w-[99%] max-w-[1920px] mx-auto pt-[74px] sm:pt-[80px] pb-2 sm:pb-2.5 px-2 sm:px-4 overflow-hidden flex flex-col min-h-0">
           <DashboardPage activeTab={activeTab} onSelectTab={setActiveTab} />
         </main>
       )}
