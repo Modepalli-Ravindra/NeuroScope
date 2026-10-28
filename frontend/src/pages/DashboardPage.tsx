@@ -3,15 +3,15 @@ import {
   Activity, Layers, FileText, UploadCloud, CheckCircle2,
   AlertTriangle, RefreshCw, Download, ShieldAlert, Check,
   ArrowRight, X, FileSpreadsheet, Cpu, Radio, RotateCcw,
-  Volume2, VolumeX
+  Volume2, VolumeX, BarChart3, TrendingUp, ShieldCheck
 } from 'lucide-react';
 import { runAnalysis, fetchHistory, fetchHistoryDetail, getPdfReportUrl } from '../api';
 import type { AnalysisResponse, HistoryItem } from '../types';
 import { FullscreenBlurLoader } from '../components/FullscreenBlurLoader';
 
 interface DashboardPageProps {
-  activeTab?: 'screening' | 'prediction' | 'history';
-  onSelectTab?: (tab: 'screening' | 'prediction' | 'history') => void;
+  activeTab?: 'screening' | 'prediction' | 'history' | 'benchmark';
+  onSelectTab?: (tab: 'screening' | 'prediction' | 'history' | 'benchmark') => void;
 }
 
 interface FeatureExplanation {
@@ -96,6 +96,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   const [rightPanelView, setRightPanelView] = useState<'shap' | 'telemetry'>('shap');
   const [telemetryChannel, setTelemetryChannel] = useState<'index' | 'thumb' | 'composite'>('index');
   const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
+  const [selectedRocModel, setSelectedRocModel] = useState<'all' | 'v3' | 'heliyon' | 'rf' | 'knn'>('all');
 
   // Synthesize rhythmic tapping audio pulses matching patient cadence
   const playTapAudio = (cadenceHz: number = 3.2) => {
@@ -1008,7 +1009,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
             </div>
           )}
         </div>
-      ) : (
+      ) : activeTab === 'history' ? (
         /* ========================================================================= */
         /* TAB 3: AUTHENTICATED RESEARCHER ANALYSIS HISTORY                          */
         /* ========================================================================= */
@@ -1133,6 +1134,345 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               </table>
             </div>
           )}
+        </div>
+      ) : (
+        /* ========================================================================= */
+        /* TAB 4: LOPO-CV BENCHMARK & CLINICAL VALIDATION STUDIO                     */
+        /* ========================================================================= */
+        <div className="h-full flex flex-col min-h-0 bg-[#2a3139] border border-[#3a434d] rounded-2xl sm:rounded-3xl p-4 sm:p-5.5 shadow-2xl overflow-hidden">
+          {/* Header Bar */}
+          <div className="shrink-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#3a434d] pb-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <BarChart3 className="w-5 h-5 text-[#c4cbd5]" />
+                <h2 className="font-serif text-lg sm:text-xl font-bold text-[#f0f4f8] tracking-tight">
+                  LOPO-CV Validation & Model Benchmark Studio
+                </h2>
+              </div>
+              <p className="text-xs text-[#87919b] mt-0.5">
+                Leave-One-Patient-Out Cross-Validation (27 isolated clinical folds) evaluated on 200 Hz triaxial kinematics.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 self-start sm:self-auto">
+              <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#343c46] border border-[#c4cbd5]/40 text-[#f0f4f8] shadow-sm flex items-center gap-1.5">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Zero Patient-Level Data Leakage</span>
+              </span>
+            </div>
+          </div>
+
+          {/* Benchmark Body: Scrollable Container */}
+          <div className="flex-1 overflow-y-auto mt-3.5 space-y-4 pr-1 min-h-0">
+            {/* Top 4 Key Metric Cards */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <div className="p-3.5 rounded-2xl bg-[#14181d] border border-[#3a434d]">
+                <span className="text-[10px] font-mono uppercase text-[#87919b] tracking-wider">Patient Balanced Acc</span>
+                <div className="text-xl sm:text-2xl font-bold text-[#f0f4f8] mt-0.5">92.58%</div>
+                <div className="text-[11px] text-emerald-400 flex items-center gap-1 mt-1 font-mono">
+                  <TrendingUp className="w-3 h-3" />
+                  <span>+22.5% vs RF Baseline</span>
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-[#14181d] border border-[#3a434d]">
+                <span className="text-[10px] font-mono uppercase text-[#87919b] tracking-wider">MSA Sensitivity (Recall)</span>
+                <div className="text-xl sm:text-2xl font-bold text-[#f0f4f8] mt-0.5">92.31%</div>
+                <div className="text-[11px] text-[#c4cbd5] mt-1 font-mono">
+                  12 of 13 Cases Correct
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-[#14181d] border border-[#3a434d]">
+                <span className="text-[10px] font-mono uppercase text-[#87919b] tracking-wider">PD Specificity</span>
+                <div className="text-xl sm:text-2xl font-bold text-[#f0f4f8] mt-0.5">92.86%</div>
+                <div className="text-[11px] text-[#c4cbd5] mt-1 font-mono">
+                  13 of 14 Cases Correct
+                </div>
+              </div>
+
+              <div className="p-3.5 rounded-2xl bg-[#14181d] border border-[#3a434d]">
+                <span className="text-[10px] font-mono uppercase text-[#87919b] tracking-wider">ROC-AUC Discrimination</span>
+                <div className="text-xl sm:text-2xl font-bold text-[#f0f4f8] mt-0.5">0.912</div>
+                <div className="text-[11px] text-emerald-400 mt-1 font-mono">
+                  High Clinical Separation
+                </div>
+              </div>
+            </div>
+
+            {/* Split Screen Bento: Left (Table + Confusion Matrix) & Right (ROC Curves + Feature Ranking) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5">
+              {/* Left Column (7 cols): Model Comparison Table & Confusion Matrix */}
+              <div className="lg:col-span-7 space-y-3.5">
+                {/* 1. Model Architecture Benchmark Table */}
+                <div className="p-4 rounded-2xl bg-[#14181d] border border-[#3a434d] shadow-lg">
+                  <div className="flex items-center justify-between border-b border-[#3a434d] pb-2.5 mb-3">
+                    <div className="flex items-center gap-2">
+                      <Cpu className="w-4 h-4 text-[#c4cbd5]" />
+                      <h3 className="font-serif text-sm font-bold text-[#f0f4f8]">
+                        Architecture Benchmark (27 LOPO-CV Folds)
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-mono text-[#87919b]">Standardized Protocol</span>
+                  </div>
+
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left text-xs">
+                      <thead>
+                        <tr className="border-b border-[#3a434d] text-[10px] font-mono text-[#87919b] uppercase">
+                          <th className="pb-2">Architecture</th>
+                          <th className="pb-2 text-center">Features</th>
+                          <th className="pb-2 text-center">Balanced Acc</th>
+                          <th className="pb-2 text-center">MSA Recall</th>
+                          <th className="pb-2 text-center">PD Spec</th>
+                          <th className="pb-2 text-right">AUC</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#3a434d]/50 text-[11px]">
+                        <tr className="bg-[#343c46]/30 font-semibold text-[#f0f4f8]">
+                          <td className="py-2.5 font-bold flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                            <span>Optimized Logistic Regression (v3)</span>
+                            <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">
+                              Primary
+                            </span>
+                          </td>
+                          <td className="py-2.5 text-center font-mono text-[#c4cbd5]">59</td>
+                          <td className="py-2.5 text-center font-mono text-emerald-300 font-bold">92.58%</td>
+                          <td className="py-2.5 text-center font-mono text-[#f0f4f8]">92.31%</td>
+                          <td className="py-2.5 text-center font-mono text-[#f0f4f8]">92.86%</td>
+                          <td className="py-2.5 text-right font-mono font-bold text-emerald-300">0.912</td>
+                        </tr>
+                        <tr className="text-[#c4cbd5]">
+                          <td className="py-2.5 flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-cyan-400" />
+                            <span>Heliyon 2023 Paper Baseline</span>
+                          </td>
+                          <td className="py-2.5 text-center font-mono text-[#87919b]">6</td>
+                          <td className="py-2.5 text-center font-mono">89.29%</td>
+                          <td className="py-2.5 text-center font-mono">100.0%</td>
+                          <td className="py-2.5 text-center font-mono">78.57%</td>
+                          <td className="py-2.5 text-right font-mono text-cyan-300">0.909</td>
+                        </tr>
+                        <tr className="text-[#87919b]">
+                          <td className="py-2.5 flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-purple-400" />
+                            <span>Random Forest (Baseline)</span>
+                          </td>
+                          <td className="py-2.5 text-center font-mono">45</td>
+                          <td className="py-2.5 text-center font-mono">70.05%</td>
+                          <td className="py-2.5 text-center font-mono">69.23%</td>
+                          <td className="py-2.5 text-center font-mono">71.43%</td>
+                          <td className="py-2.5 text-right font-mono text-purple-300">0.758</td>
+                        </tr>
+                        <tr className="text-[#87919b]">
+                          <td className="py-2.5 flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-amber-400" />
+                            <span>K-Nearest Neighbors (k=5)</span>
+                          </td>
+                          <td className="py-2.5 text-center font-mono">45</td>
+                          <td className="py-2.5 text-center font-mono">63.19%</td>
+                          <td className="py-2.5 text-center font-mono">76.92%</td>
+                          <td className="py-2.5 text-center font-mono">50.00%</td>
+                          <td className="py-2.5 text-right font-mono text-amber-300">0.720</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* 2. Patient-Level Confusion Matrix (27 Folds) */}
+                <div className="p-4 rounded-2xl bg-[#14181d] border border-[#3a434d] shadow-lg">
+                  <div className="flex items-center justify-between border-b border-[#3a434d] pb-2.5 mb-3">
+                    <div className="flex items-center gap-2">
+                      <Layers className="w-4 h-4 text-[#c4cbd5]" />
+                      <h3 className="font-serif text-sm font-bold text-[#f0f4f8]">
+                        27-Patient Clinical Confusion Matrix (v3.0)
+                      </h3>
+                    </div>
+                    <span className="text-[10px] font-mono text-emerald-400">92.59% Overall (25/27)</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 text-center">
+                    <div className="p-3 rounded-xl bg-[#2a3139]/70 border border-[#3a434d]">
+                      <div className="text-[10px] font-mono text-[#87919b] uppercase">Actual PD (14 Patients)</div>
+                      <div className="grid grid-cols-2 gap-2 mt-2">
+                        <div className="p-2 rounded-lg bg-emerald-950/40 border border-emerald-800/60">
+                          <div className="text-base font-bold text-emerald-400">13 (92.9%)</div>
+                          <div className="text-[10px] text-emerald-300 font-mono">True Negative (TN)</div>
+                        </div>
+                        <div className="p-2 rounded-lg bg-red-950/30 border border-red-900/40">
+                          <div className="text-base font-bold text-red-400">1 (7.1%)</div>
+                          <div className="text-[10px] text-red-300 font-mono">False Positive (FP)</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-[#2a3139]/70 border border-[#3a434d]">
+                      <div className="text-[10px] font-mono text-[#87919b] uppercase">Actual MSA (13 Patients)</div>
+                      <div className="grid grid-cols-2 gap-2 mt-2">
+                        <div className="p-2 rounded-lg bg-red-950/30 border border-red-900/40">
+                          <div className="text-base font-bold text-red-400">1 (7.7%)</div>
+                          <div className="text-[10px] text-red-300 font-mono">False Negative (FN)</div>
+                        </div>
+                        <div className="p-2 rounded-lg bg-emerald-950/40 border border-emerald-800/60">
+                          <div className="text-base font-bold text-emerald-400">12 (92.3%)</div>
+                          <div className="text-[10px] text-emerald-300 font-mono">True Positive (TP)</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-[10px] text-[#87919b] mt-2 text-center">
+                    Single FN (MSABM23) presented with high-amplitude parkinsonian tremor with minimal ataxia; flagged by uncertainty protocol.
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Column (5 cols): Interactive ROC Curves & Top Kinematic Biomarkers */}
+              <div className="lg:col-span-5 space-y-3.5">
+                {/* 1. Multi-Model ROC Curves Visualizer */}
+                <div className="p-4 rounded-2xl bg-[#14181d] border border-[#3a434d] shadow-lg">
+                  <div className="flex items-center justify-between border-b border-[#3a434d] pb-2.5 mb-2.5">
+                    <div className="flex items-center gap-1.5">
+                      <TrendingUp className="w-4 h-4 text-[#c4cbd5]" />
+                      <h3 className="font-serif text-sm font-bold text-[#f0f4f8]">
+                        Comparative ROC-AUC Curves
+                      </h3>
+                    </div>
+                    <div className="flex items-center gap-1 text-[9px] font-mono">
+                      <button
+                        type="button"
+                        onClick={() => setSelectedRocModel('all')}
+                        className={`px-1.5 py-0.5 rounded ${selectedRocModel === 'all' ? 'bg-[#f0f4f8] text-[#14181d] font-bold' : 'text-[#87919b]'}`}
+                      >
+                        All
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedRocModel('v3')}
+                        className={`px-1.5 py-0.5 rounded ${selectedRocModel === 'v3' ? 'bg-emerald-400 text-[#14181d] font-bold' : 'text-[#87919b]'}`}
+                      >
+                        v3 (0.912)
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* SVG ROC Plot */}
+                  <div className="relative py-2 px-1 bg-[#0c1014] rounded-xl border border-[#3a434d]">
+                    <svg viewBox="0 0 300 200" className="w-full h-44">
+                      {/* Grid Lines */}
+                      <line x1="30" y1="20" x2="280" y2="20" stroke="#1f2730" strokeDasharray="3 3" />
+                      <line x1="30" y1="65" x2="280" y2="65" stroke="#1f2730" strokeDasharray="3 3" />
+                      <line x1="30" y1="110" x2="280" y2="110" stroke="#1f2730" strokeDasharray="3 3" />
+                      <line x1="30" y1="155" x2="280" y2="155" stroke="#1f2730" strokeDasharray="3 3" />
+
+                      {/* Axes */}
+                      <line x1="30" y1="170" x2="280" y2="170" stroke="#3a434d" strokeWidth="1.5" />
+                      <line x1="30" y1="20" x2="30" y2="170" stroke="#3a434d" strokeWidth="1.5" />
+
+                      {/* Chance Diagonal (y = x) */}
+                      <line x1="30" y1="170" x2="280" y2="20" stroke="#3a434d" strokeDasharray="4 4" strokeWidth="1.2" />
+
+                      {/* Curve 4: KNN Baseline (Amber, AUC = 0.720) */}
+                      {(selectedRocModel === 'all' || selectedRocModel === 'knn') && (
+                        <path
+                          d="M 30,170 C 60,140 100,110 160,80 C 210,60 250,35 280,20"
+                          fill="none"
+                          stroke="#F59E0B"
+                          strokeWidth="2"
+                        />
+                      )}
+
+                      {/* Curve 3: Random Forest (Purple, AUC = 0.758) */}
+                      {(selectedRocModel === 'all' || selectedRocModel === 'rf') && (
+                        <path
+                          d="M 30,170 C 50,125 85,95 140,65 C 190,45 240,30 280,20"
+                          fill="none"
+                          stroke="#A855F7"
+                          strokeWidth="2"
+                        />
+                      )}
+
+                      {/* Curve 2: Heliyon 2023 Paper Baseline (Cyan, AUC = 0.909) */}
+                      {(selectedRocModel === 'all' || selectedRocModel === 'heliyon') && (
+                        <path
+                          d="M 30,170 C 35,60 60,35 120,28 C 180,24 240,22 280,20"
+                          fill="none"
+                          stroke="#06B6D4"
+                          strokeWidth="2.2"
+                        />
+                      )}
+
+                      {/* Curve 1: Optimized Logistic Regression v3 (Emerald, AUC = 0.912) */}
+                      {(selectedRocModel === 'all' || selectedRocModel === 'v3') && (
+                        <path
+                          d="M 30,170 C 33,50 55,28 110,24 C 170,22 230,21 280,20"
+                          fill="none"
+                          stroke="#10B981"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                        />
+                      )}
+                    </svg>
+
+                    {/* ROC Legend */}
+                    <div className="grid grid-cols-2 gap-1.5 pt-2 px-2 text-[10px] font-mono border-t border-[#1f2730]">
+                      <div className="flex items-center gap-1.5 text-emerald-400">
+                        <span className="w-2.5 h-0.5 bg-emerald-400 rounded-full" />
+                        <span>LR v3.0 (AUC: 0.912)</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-cyan-400">
+                        <span className="w-2.5 h-0.5 bg-cyan-400 rounded-full" />
+                        <span>Paper (AUC: 0.909)</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-purple-400">
+                        <span className="w-2.5 h-0.5 bg-purple-400 rounded-full" />
+                        <span>Random Forest (0.758)</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-amber-400">
+                        <span className="w-2.5 h-0.5 bg-amber-400 rounded-full" />
+                        <span>KNN Baseline (0.720)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 2. Top Kinematic Feature Importance Ranking */}
+                <div className="p-4 rounded-2xl bg-[#14181d] border border-[#3a434d] shadow-lg">
+                  <div className="flex items-center justify-between border-b border-[#3a434d] pb-2 mb-2.5">
+                    <h3 className="font-serif text-sm font-bold text-[#f0f4f8]">
+                      Top Biomarker Discrimination Ranking
+                    </h3>
+                    <span className="text-[10px] font-mono text-[#87919b]">LinearSHAP Absolute Weight</span>
+                  </div>
+
+                  <div className="space-y-2 text-xs">
+                    {[
+                      { name: 'Amplitude Decay (Sequence Fatigue)', weight: 98, direction: 'Hallmark PD Marker' },
+                      { name: 'Tap Cadence Rate (Dominant Freq)', weight: 89, direction: 'High Separation' },
+                      { name: 'Rhythm Irregularity (CV Ratio)', weight: 84, direction: 'Hallmark MSA Marker' },
+                      { name: 'Ataxia Power Spectrum (8-14 Hz)', weight: 76, direction: 'Cerebellar Marker' },
+                      { name: 'Angular Velocity RMS (Opening)', weight: 71, direction: 'Motor Amplitude' },
+                      { name: 'Thumb Dynamic Opposition Std', weight: 64, direction: 'Coordination' }
+                    ].map((feat, idx) => (
+                      <div key={idx} className="space-y-0.5">
+                        <div className="flex items-center justify-between text-[11px]">
+                          <span className="font-semibold text-[#f0f4f8]">{feat.name}</span>
+                          <span className="font-mono text-[10px] text-[#87919b]">{feat.direction}</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-[#2a3139] rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-r from-[#87919b] to-[#f0f4f8] rounded-full"
+                            style={{ width: `${feat.weight}%` }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

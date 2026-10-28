@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight, User, LogOut, Activity, FileText, Layers } from 'lucide-react';
+import { Menu, X, ArrowRight, User, LogOut, Activity, FileText, Layers, BarChart3 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 interface PublicNavbarProps {
   onNavigateSection?: (sectionId: string) => void;
-  activeTab?: 'screening' | 'prediction' | 'history';
-  onSelectTab?: (tab: 'screening' | 'prediction' | 'history') => void;
+  activeTab?: 'screening' | 'prediction' | 'history' | 'benchmark';
+  onSelectTab?: (tab: 'screening' | 'prediction' | 'history' | 'benchmark') => void;
 }
 
 export const PublicNavbar: React.FC<PublicNavbarProps> = ({
@@ -48,7 +48,7 @@ export const PublicNavbar: React.FC<PublicNavbarProps> = ({
     setMobileMenuOpen(false);
   };
 
-  const handleTabClick = (tab: 'screening' | 'prediction' | 'history') => {
+  const handleTabClick = (tab: 'screening' | 'prediction' | 'history' | 'benchmark') => {
     onSelectTab?.(tab);
     setMobileMenuOpen(false);
   };
@@ -167,7 +167,18 @@ export const PublicNavbar: React.FC<PublicNavbarProps> = ({
               }`}
             >
               <FileText className="w-3.5 h-3.5 text-[#87919b]" />
-              <span>Analysis History</span>
+              <span>History</span>
+            </button>
+            <button
+              onClick={() => handleTabClick('benchmark')}
+              className={`px-5 py-2 rounded-full text-xs sm:text-[13px] font-medium transition-all duration-200 cursor-pointer flex items-center gap-2 ${
+                activeTab === 'benchmark'
+                  ? 'bg-[#343c46] text-[#f0f4f8] font-semibold border border-[#c4cbd5]/40 shadow-sm'
+                  : 'text-[#87919b] hover:text-[#f0f4f8] hover:bg-[#343c46]/40'
+              }`}
+            >
+              <BarChart3 className="w-3.5 h-3.5 text-[#c4cbd5]" />
+              <span>Benchmark Studio</span>
             </button>
           </nav>
         )}
@@ -336,7 +347,18 @@ export const PublicNavbar: React.FC<PublicNavbarProps> = ({
                   }`}
                 >
                   <FileText className="w-4 h-4 text-[#87919b]" />
-                  <span>Analysis History</span>
+                  <span>History</span>
+                </button>
+                <button
+                  onClick={() => handleTabClick('benchmark')}
+                  className={`text-left px-4 py-2.5 rounded-xl transition-colors flex items-center gap-2 ${
+                    activeTab === 'benchmark'
+                      ? 'bg-[#343c46] text-[#f0f4f8] font-semibold border border-[#c4cbd5]/40'
+                      : 'hover:bg-[#343c46]/40 hover:text-[#f0f4f8]'
+                  }`}
+                >
+                  <BarChart3 className="w-4 h-4 text-[#c4cbd5]" />
+                  <span>Benchmark Studio</span>
                 </button>
               </nav>
 

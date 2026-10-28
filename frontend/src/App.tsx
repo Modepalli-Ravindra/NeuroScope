@@ -8,7 +8,7 @@ import { FullscreenBlurLoader } from './components/FullscreenBlurLoader';
 
 const MainAppContent: React.FC = () => {
   const { isAuthenticated, openRegister, authOverlay } = useAuth();
-  const [activeTab, setActiveTab] = React.useState<'screening' | 'prediction' | 'history'>('screening');
+  const [activeTab, setActiveTab] = React.useState<'screening' | 'prediction' | 'history' | 'benchmark'>('screening');
 
   const handleNavigateSection = (sectionId: string) => {
     const el = document.getElementById(sectionId);
