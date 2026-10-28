@@ -103,12 +103,12 @@ export const AuthModal: React.FC = () => {
           <div className="flex items-center gap-3.5">
             <img
               src="/logo.png"
-              alt="NeuroScope"
+              alt="NeuroKinematix"
               className="w-9 h-9 object-contain filter drop-shadow-[0_0_10px_rgba(196,203,213,0.35)]"
             />
             <div>
               <h3 className="font-semibold text-base sm:text-lg text-[#f0f4f8] tracking-tight">
-                {isSignUp ? 'Create Researcher Account' : 'Sign In to NeuroScope'}
+                {isSignUp ? 'Create Researcher Account' : 'Sign In to NeuroKinematix'}
               </h3>
               <p className="text-[11px] text-[#87919b] mt-0.5">
                 {isSignUp

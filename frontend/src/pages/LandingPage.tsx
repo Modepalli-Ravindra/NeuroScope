@@ -306,7 +306,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onStartAnalysis }) => 
             Differential Screening
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#f0f4f8] tracking-tight">
-            Why NeuroScope
+            Why NeuroKinematix
           </h2>
           <p className="text-xs sm:text-sm text-[#87919b] leading-relaxed">
             Validated biomechanical intelligence to discriminate movement disorders with clinical explainability.

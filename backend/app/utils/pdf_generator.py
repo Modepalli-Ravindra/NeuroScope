@@ -59,7 +59,7 @@ def generate_pdf_report(analysis_data: Dict[str, Any]) -> io.BytesIO:
     story = []
 
     # Title Banner
-    story.append(Paragraph("NeuroScope — Explainable Movement AI", header_style))
+    story.append(Paragraph("NeuroKinematix — Advanced Continuous Sensor Analytics", header_style))
     story.append(Paragraph("Differential Screening Research Report: MSA vs. Parkinson's Disease", subhead_style))
     story.append(Spacer(1, 10))
     story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor('#004741'), spaceAfter=14))
@@ -78,7 +78,7 @@ def generate_pdf_report(analysis_data: Dict[str, Any]) -> io.BytesIO:
         [Paragraph("<b>Participant ID:</b>", body_style), Paragraph(str(meta.get("person_id", "ANONYMOUS")), body_style),
          Paragraph("<b>Trial:</b>", body_style), Paragraph(str(meta.get("trial_id", "trial1")), body_style)],
         [Paragraph("<b>Ground Truth Label:</b>", body_style), Paragraph(str(meta.get("original_label", "Hidden/N/A")), body_style),
-         Paragraph("<b>Model Version:</b>", body_style), Paragraph("NeuroScope-RF v1.0.0", body_style)]
+         Paragraph("<b>Model Version:</b>", body_style), Paragraph("NeuroKinematix-LR v3.0", body_style)]
     ]
     meta_table = Table(meta_table_data, colWidths=[110, 155, 110, 155])
     meta_table.setStyle(TableStyle([

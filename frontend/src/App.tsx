@@ -44,8 +44,8 @@ const MainAppContent: React.FC = () => {
           <footer className="border-t border-[#3a434d] bg-[#0e1114] py-8 text-xs text-[#87919b] mt-20">
             <div className="w-full max-w-[1390px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
               <div className="flex items-center gap-2">
-                <span className="font-bold text-sm text-[#f0f4f8]">NeuroScope</span>
-                <span className="text-[#87919b]">— Explainable Movement Disorders Research Platform</span>
+                <span className="font-bold text-sm text-[#f0f4f8]">NeuroKinematix</span>
+                <span className="text-[#87919b]">— Advanced Continuous Sensor Analytics</span>
               </div>
               <div className="text-[#87919b] font-mono text-[10px]">
                 University of Belgrade 200 Hz Cohort

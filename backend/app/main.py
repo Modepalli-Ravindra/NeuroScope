@@ -10,9 +10,9 @@ from backend.ml.inference import InferenceEngine
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="NeuroScope API — Explainable MSA vs. PD Screening",
-    description="Educational AI research backend for differential screening of Multiple System Atrophy and Parkinson's Disease.",
-    version="1.0.0"
+    title="NeuroKinematix API — Advanced Continuous Sensor Analytics",
+    description="Clinical AI research backend for differential screening of Multiple System Atrophy and Parkinson's Disease.",
+    version="3.0.0"
 )
 
 # Enable CORS for local React/Vite development
@@ -36,14 +36,14 @@ app.include_router(voice.router)
 def startup_event():
     # Warm up inference engine so models and SHAP explainer are loaded
     InferenceEngine.get_instance()
-    print("NeuroScope FastAPI server started and ready for inference.")
+    print("NeuroKinematix FastAPI server started and ready for inference.")
 
 @app.get("/api/health")
 def health_check():
     engine_inst = InferenceEngine.get_instance()
     return {
         "status": "healthy",
-        "service": "NeuroScope Backend",
+        "service": "NeuroKinematix Backend",
         "version": "1.0.0",
         "models_loaded": {
             "random_forest": engine_inst.rf_model is not None,
