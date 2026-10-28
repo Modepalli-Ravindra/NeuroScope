@@ -1,4 +1,5 @@
 import os
+os.environ["DISABLE_SQLALCHEMY_CEXT"] = "1"
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.database import engine, Base
