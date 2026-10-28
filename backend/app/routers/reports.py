@@ -113,7 +113,7 @@ def download_pdf_report(analysis_id: int, db: Session = Depends(get_db)):
     }
 
     pdf_buffer = generate_pdf_report(analysis_data)
-    filename = f"NeuroKinematix_Report_{record.predicted_class}_{record.id}.pdf"
+    filename = f"NeuroScope_Report_{record.predicted_class}_{record.id}.pdf"
     
     return Response(
         content=pdf_buffer.getvalue(),

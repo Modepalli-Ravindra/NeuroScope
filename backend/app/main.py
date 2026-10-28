@@ -10,9 +10,9 @@ from backend.ml.inference import InferenceEngine
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="NeuroKinematix API — Advanced Continuous Sensor Analytics",
-    description="Clinical AI research backend for differential screening of Multiple System Atrophy and Parkinson's Disease.",
-    version="3.0.0"
+    title="NeuroScope API — Explainable MSA vs. PD Screening",
+    description="Educational AI research backend for differential screening of Multiple System Atrophy and Parkinson's Disease.",
+    version="1.0.0"
 )
 
 # Enable CORS for local React/Vite development
@@ -36,19 +36,22 @@ app.include_router(voice.router)
 def startup_event():
     # Warm up inference engine so models and SHAP explainer are loaded
     InferenceEngine.get_instance()
-    print("NeuroKinematix FastAPI server started and ready for inference.")
+    print("NeuroScope FastAPI server started and ready for inference.")
 
+@app.get("/health")
 @app.get("/api/health")
 def health_check():
     engine_inst = InferenceEngine.get_instance()
     return {
         "status": "healthy",
-        "service": "NeuroKinematix Backend",
-        "version": "1.0.0",
+        "service": "NeuroScope Backend",
+        "version": "3.0.0",
+        "primary_model": "Optimized Logistic Regression v3.0 (92.58% Balanced Accuracy, 27 LOPO-CV Folds)",
         "models_loaded": {
+            "primary_v3": engine_inst.v3_available,
             "random_forest": engine_inst.rf_model is not None,
             "knn_baseline": engine_inst.knn_model is not None,
-            "shap_explainer": engine_inst.tree_explainer is not None
+            "linear_shap_explainer": engine_inst.v3_available
         },
         "features_loaded": len(engine_inst.feature_cols)
     }

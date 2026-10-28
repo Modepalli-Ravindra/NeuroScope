@@ -265,7 +265,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         extracted_features: detail.extracted_features || {},
         signal_preview: { time: [], channels: { gyroThumbX: [], gyroThumbY: [], gyroThumbZ: [], gyroIndexX: [], gyroIndexY: [], gyroIndexZ: [] } },
         model_metadata: {
-          model_name: 'NeuroKinematix Primary Classifier',
+          model_name: 'NeuroScope Kinematic Classifier',
           model_version: '3.0',
           dataset_source: 'Belgrade Movement Disorders Cohort',
           validation_method: 'Leave-One-Patient-Out Cross-Validation',

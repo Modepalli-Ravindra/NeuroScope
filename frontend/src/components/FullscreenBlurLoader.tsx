@@ -45,14 +45,14 @@ export const FullscreenBlurLoader: React.FC<FullscreenBlurLoaderProps> = ({
   const loginSteps = [
     { title: 'Verifying Credentials', desc: 'Validating institutional researcher signature...' },
     { title: 'Authorizing Secure Session', desc: 'Loading verified research access tokens...' },
-    { title: 'Opening Workspace', desc: 'Welcome to NeuroKinematix Lab' },
+    { title: 'Opening Workspace', desc: 'Welcome to NeuroScope Kinematic Lab' },
   ];
 
   // Logout specific sequence
   const logoutSteps = [
     { title: 'Securing Session', desc: 'Terminating active researcher authorization...' },
     { title: 'Purging Telemetry Cache', desc: 'Clearing ephemeral session tokens and workspace data...' },
-    { title: 'Redirecting', desc: 'Returning to NeuroKinematix Public Portal' },
+    { title: 'Redirecting', desc: 'Returning to NeuroScope Public Portal' },
   ];
 
   useEffect(() => {
@@ -132,7 +132,7 @@ export const FullscreenBlurLoader: React.FC<FullscreenBlurLoaderProps> = ({
             {type === 'analysis' ? (
               <img
                 src="/logo.png"
-                alt="NeuroKinematix Mark"
+                alt="NeuroScope Mark"
                 className="w-10 h-10 object-contain filter drop-shadow-[0_0_10px_rgba(196,203,213,0.4)] animate-pulse"
               />
             ) : type === 'login' ? (

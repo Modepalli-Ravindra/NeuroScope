@@ -86,9 +86,9 @@ async def analyze_recording(
             knn_baseline=pred["knn_baseline_class"],
             is_uncertain=pred["is_uncertain"],
             uncertainty_reasons_json=json.dumps(pred["uncertainty_reasons"]),
-            top_shap_json=json.dumps(result["shap_explanation"]["top_features"]),
-            extracted_features_json=json.dumps(result["extracted_features"]),
-            model_version=result["model_metadata"]["model_version"],
+            top_shap_json=json.dumps(result.get("shap_explanation", {}).get("top_features", [])),
+            extracted_features_json=json.dumps(result.get("extracted_features", {})),
+            model_version=result.get("model_metadata", {}).get("model_version", "v3.0-Combined-Heliyon-DeepKinematic-LogisticRegression-RobustScaler"),
             notes=notes or ""
         )
         db.add(db_record)
