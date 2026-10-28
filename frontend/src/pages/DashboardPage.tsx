@@ -627,12 +627,12 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
             <div className="flex-1 min-h-0 mt-2.5 overflow-hidden">
               <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch overflow-hidden">
                 {/* ========================================================= */}
-                {/* LEFT SIDE (50%): DIFFERENTIAL PREDICTION                 */}
+                {/* LEFT SIDE (50%): DIFFERENTIAL PREDICTION */}
                 {/* ========================================================= */}
-                <div className="bg-[#14181d] p-4 sm:p-5 rounded-2xl border border-[#3a434d] flex flex-col justify-between overflow-hidden space-y-3">
-                  <div className="space-y-3 overflow-hidden">
-                    {/* Header */}
-                    <div className="flex items-center justify-between border-b border-[#3a434d] pb-2.5">
+                <div className="bg-[#14181d] p-4 sm:p-5 rounded-2xl border border-[#3a434d] flex flex-col justify-between overflow-hidden shadow-xl">
+                  <div className="space-y-3.5 overflow-hidden">
+                    {/* Header with Title and Classification Badge */}
+                    <div className="flex items-center justify-between border-b border-[#3a434d] pb-3">
                       <div>
                         <span className="text-[10px] font-mono uppercase tracking-wider text-[#87919b]">
                           Differential Classification
@@ -644,10 +644,10 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                         </div>
                       </div>
                       <span
-                        className={`px-3 py-1.5 rounded-xl font-mono text-sm font-bold shadow ${
+                        className={`px-3 py-1.5 rounded-xl font-mono text-sm font-bold shadow-lg transition-transform ${
                           currentAnalysis.prediction.predicted_class === 'MSA'
-                            ? 'bg-[#343c46] text-[#f0f4f8] border border-[#c4cbd5]'
-                            : 'bg-[#2a3139] text-[#c4cbd5] border border-[#3a434d]'
+                            ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-500/60'
+                            : 'bg-cyan-950/80 text-cyan-300 border border-cyan-500/60'
                         }`}
                       >
                         {currentAnalysis.prediction.predicted_class}
@@ -655,33 +655,40 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     </div>
 
                     {/* Model Confidence Metric Card */}
-                    <div className="p-3 rounded-xl bg-[#2a3139] border border-[#3a434d] flex items-center justify-between">
+                    <div className="p-3.5 rounded-xl bg-[#2a3139]/80 border border-[#3a434d] flex items-center justify-between shadow-inner">
                       <div>
-                        <div className="text-[11px] text-[#87919b]">Model Confidence Score</div>
-                        <div className="text-xl sm:text-2xl font-bold font-mono text-[#f0f4f8]">
+                        <div className="text-[11px] font-mono text-[#87919b]">MODEL CONFIDENCE SCORE</div>
+                        <div className="text-2xl sm:text-3xl font-bold font-mono text-[#f0f4f8] mt-0.5">
                           {(currentAnalysis.prediction.confidence_score * 100).toFixed(1)}%
                         </div>
                       </div>
-                      <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-[#343c46] border border-[#3a434d] text-[#f0f4f8]">
-                        Inference Validated
-                      </span>
+                      <div className="flex flex-col items-end gap-1">
+                        <span className="text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-950/60 border border-emerald-700/60 text-emerald-300 flex items-center gap-1.5">
+                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>Inference Validated</span>
+                        </span>
+                        <span className="text-[10px] font-mono text-[#87919b]">
+                          {currentAnalysis.prediction.confidence_score >= 0.85 ? 'High Decision Margin' : 'Nominal Margin'}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Cohort Class Probability Breakdown */}
-                    <div className="space-y-2.5 bg-[#2a3139]/60 p-3 rounded-xl border border-[#3a434d]">
-                      <div className="text-[11px] font-bold text-[#f0f4f8] uppercase tracking-wide">
-                        Cohort Class Probabilities
+                    <div className="space-y-3 bg-[#2a3139]/50 p-3.5 rounded-xl border border-[#3a434d]">
+                      <div className="flex items-center justify-between text-[11px] font-bold text-[#f0f4f8] uppercase tracking-wide">
+                        <span>Cohort Class Probabilities</span>
+                        <span className="font-mono text-[10px] text-[#87919b]">Softmax Probability</span>
                       </div>
 
                       {/* MSA probability bar */}
                       <div className="space-y-1">
                         <div className="flex justify-between text-xs font-mono">
-                          <span className="text-[#f0f4f8]">Multiple System Atrophy (MSA)</span>
-                          <span className="font-bold text-[#f0f4f8]">{(currentAnalysis.prediction.probabilities.MSA * 100).toFixed(1)}%</span>
+                          <span className="text-[#f0f4f8] font-medium">Multiple System Atrophy (MSA)</span>
+                          <span className="font-bold text-emerald-400">{(currentAnalysis.prediction.probabilities.MSA * 100).toFixed(1)}%</span>
                         </div>
-                        <div className="h-2 w-full bg-[#14181d] rounded-full overflow-hidden">
+                        <div className="h-2.5 w-full bg-[#14181d] rounded-full overflow-hidden p-0.5 border border-[#3a434d]/60">
                           <div
-                            className="bg-[#c4cbd5] h-full transition-all duration-500 rounded-full"
+                            className="bg-gradient-to-r from-emerald-600 to-emerald-400 h-full transition-all duration-700 rounded-full"
                             style={{ width: `${currentAnalysis.prediction.probabilities.MSA * 100}%` }}
                           />
                         </div>
@@ -690,27 +697,64 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                       {/* PD probability bar */}
                       <div className="space-y-1">
                         <div className="flex justify-between text-xs font-mono">
-                          <span className="text-[#87919b]">Parkinson's Disease (PD)</span>
-                          <span className="font-bold text-[#f0f4f8]">{(currentAnalysis.prediction.probabilities.PD * 100).toFixed(1)}%</span>
+                          <span className="text-[#87919b] font-medium">Parkinson's Disease (PD)</span>
+                          <span className="font-bold text-cyan-400">{(currentAnalysis.prediction.probabilities.PD * 100).toFixed(1)}%</span>
                         </div>
-                        <div className="h-2 w-full bg-[#14181d] rounded-full overflow-hidden">
+                        <div className="h-2.5 w-full bg-[#14181d] rounded-full overflow-hidden p-0.5 border border-[#3a434d]/60">
                           <div
-                            className="bg-[#3a434d] h-full transition-all duration-500 rounded-full"
+                            className="bg-gradient-to-r from-cyan-700 to-cyan-400 h-full transition-all duration-700 rounded-full"
                             style={{ width: `${currentAnalysis.prediction.probabilities.PD * 100}%` }}
                           />
                         </div>
                       </div>
                     </div>
 
-                    {/* Independent KNN Baseline Concordance */}
-                    <div className="p-2.5 rounded-xl bg-[#2a3139]/60 border border-[#3a434d] flex items-center justify-between text-xs">
-                      <span className="text-[#87919b]">Independent KNN Baseline:</span>
-                      <span className="font-mono font-bold text-[#f0f4f8]">
-                        {currentAnalysis.prediction.knn_baseline_class}{' '}
-                        <span className="text-[11px] font-normal text-[#c4cbd5] font-sans">
-                          ({currentAnalysis.prediction.knn_baseline_class === currentAnalysis.prediction.predicted_class ? 'Concordant' : 'Discordant'})
+                    {/* Multi-Model Clinical Consensus Box (Fills gap interactively) */}
+                    <div className="p-3 rounded-xl bg-[#2a3139]/60 border border-[#3a434d] space-y-2">
+                      <div className="flex items-center justify-between text-[11px] font-bold text-[#f0f4f8]">
+                        <span className="uppercase font-mono text-[10px] text-[#87919b]">Cross-Model Decision Concordance</span>
+                        <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold ${
+                          currentAnalysis.prediction.knn_baseline_class === currentAnalysis.prediction.predicted_class
+                            ? 'bg-emerald-950/60 text-emerald-300 border border-emerald-700/60'
+                            : 'bg-amber-950/60 text-amber-300 border border-amber-700/60'
+                        }`}>
+                          {currentAnalysis.prediction.knn_baseline_class === currentAnalysis.prediction.predicted_class ? 'Full Consensus' : 'Model Divergence'}
                         </span>
-                      </span>
+                      </div>
+                      
+                      <div className="grid grid-cols-2 gap-2 text-xs">
+                        <div className="p-2 rounded-lg bg-[#14181d] border border-[#3a434d]">
+                          <div className="text-[10px] text-[#87919b] font-mono">PRIMARY (LR v3.0)</div>
+                          <div className="font-bold text-emerald-400 mt-0.5">
+                            {currentAnalysis.prediction.predicted_class} ({(currentAnalysis.prediction.confidence_score * 100).toFixed(0)}%)
+                          </div>
+                        </div>
+                        <div className="p-2 rounded-lg bg-[#14181d] border border-[#3a434d]">
+                          <div className="text-[10px] text-[#87919b] font-mono">HELIYON KNN BASELINE</div>
+                          <div className="font-bold text-[#f0f4f8] mt-0.5">
+                            {currentAnalysis.prediction.knn_baseline_class}{' '}
+                            <span className="text-[10px] font-normal text-[#87919b]">
+                              ({currentAnalysis.prediction.knn_baseline_class === currentAnalysis.prediction.predicted_class ? 'Concordant' : 'Discordant'})
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Kinematic Recording Signal Envelope Summary */}
+                    <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                      <div className="p-2 rounded-xl bg-[#2a3139]/60 border border-[#3a434d]">
+                        <div className="text-[9px] font-mono text-[#87919b]">SAMPLING</div>
+                        <div className="font-bold text-[#f0f4f8] mt-0.5">200 Hz Triaxial</div>
+                      </div>
+                      <div className="p-2 rounded-xl bg-[#2a3139]/60 border border-[#3a434d]">
+                        <div className="text-[9px] font-mono text-[#87919b]">RECORDING</div>
+                        <div className="font-bold text-[#f0f4f8] mt-0.5">{currentAnalysis.input_metadata.duration_sec.toFixed(1)}s</div>
+                      </div>
+                      <div className="p-2 rounded-xl bg-[#2a3139]/60 border border-[#3a434d]">
+                        <div className="text-[9px] font-mono text-[#87919b]">DATA POINTS</div>
+                        <div className="font-bold text-[#f0f4f8] mt-0.5">{currentAnalysis.input_metadata.sample_count} pts</div>
+                      </div>
                     </div>
 
                     {/* Uncertainty Alert if Flagged */}
@@ -725,9 +769,20 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     )}
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-[#2a3139] border border-[#3a434d] text-[11px] text-[#87919b] flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#c4cbd5] shrink-0" />
-                    <span>Validated differential classification based on 6-axis gyroscope continuous signals.</span>
+                  {/* Interactive Quick Action Bar */}
+                  <div className="pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (currentAnalysis.id) {
+                          window.open(getPdfReportUrl(currentAnalysis.id), '_blank');
+                        }
+                      }}
+                      className="w-full py-2.5 px-3 rounded-xl bg-[#2a3139] hover:bg-[#343c46] border border-[#3a434d] text-xs font-semibold text-[#f0f4f8] flex items-center justify-center gap-2 cursor-pointer transition-all shadow hover:border-emerald-500/50"
+                    >
+                      <Download className="w-4 h-4 text-emerald-400" />
+                      <span>Export Full Clinical PDF Report (with SHAP & Metrics)</span>
+                    </button>
                   </div>
                 </div>
 
@@ -1000,9 +1055,20 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     )}
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-[#2a3139] border border-[#3a434d] text-[11px] text-[#87919b] flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4 text-[#c4cbd5] shrink-0" />
-                    <span>Closed-form LinearSHAP attributions quantified across all 59 continuous movement features.</span>
+                  {/* Interactive Quick View Switcher Action Bar */}
+                  <div className="pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setRightPanelView(rightPanelView === 'shap' ? 'telemetry' : 'shap')}
+                      className="w-full py-2.5 px-3 rounded-xl bg-[#2a3139] hover:bg-[#343c46] border border-[#3a434d] text-xs font-semibold text-[#f0f4f8] flex items-center justify-center gap-2 cursor-pointer transition-all shadow hover:border-cyan-500/50"
+                    >
+                      <Activity className="w-4 h-4 text-cyan-400" />
+                      <span>
+                        {rightPanelView === 'shap'
+                          ? 'Switch to 200 Hz Continuous Waveforms & Metronome'
+                          : 'Switch to LinearSHAP Biomarker Influences'}
+                      </span>
+                    </button>
                   </div>
                 </div>
               </div>
