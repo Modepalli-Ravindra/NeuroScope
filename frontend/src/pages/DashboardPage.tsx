@@ -1055,21 +1055,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     )}
                   </div>
 
-                  {/* Interactive Quick View Switcher Action Bar */}
-                  <div className="pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setRightPanelView(rightPanelView === 'shap' ? 'telemetry' : 'shap')}
-                      className="w-full py-2.5 px-3 rounded-xl bg-[#2a3139] hover:bg-[#343c46] border border-[#3a434d] text-xs font-semibold text-[#f0f4f8] flex items-center justify-center gap-2 cursor-pointer transition-all shadow hover:border-cyan-500/50"
-                    >
-                      <Activity className="w-4 h-4 text-cyan-400" />
-                      <span>
-                        {rightPanelView === 'shap'
-                          ? 'Switch to 200 Hz Continuous Waveforms & Metronome'
-                          : 'Switch to LinearSHAP Biomarker Influences'}
-                      </span>
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
