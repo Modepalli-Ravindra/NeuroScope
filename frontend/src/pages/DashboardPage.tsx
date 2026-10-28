@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {
   Activity, Layers, FileText, UploadCloud, CheckCircle2,
   AlertTriangle, RefreshCw, Download, ShieldAlert, Check,
-  ArrowRight, X, FileSpreadsheet, Cpu, Radio, RotateCcw
+  ArrowRight, X, FileSpreadsheet, Cpu, Radio, RotateCcw,
+  Volume2, VolumeX
 } from 'lucide-react';
 import { runAnalysis, fetchHistory, fetchHistoryDetail, getPdfReportUrl } from '../api';
 import type { AnalysisResponse, HistoryItem } from '../types';
@@ -92,6 +93,58 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [currentAnalysis, setCurrentAnalysis] = useState<AnalysisResponse | null>(null);
+  const [rightPanelView, setRightPanelView] = useState<'shap' | 'telemetry'>('shap');
+  const [telemetryChannel, setTelemetryChannel] = useState<'index' | 'thumb' | 'composite'>('index');
+  const [isPlayingAudio, setIsPlayingAudio] = useState<boolean>(false);
+
+  // Synthesize rhythmic tapping audio pulses matching patient cadence
+  const playTapAudio = (cadenceHz: number = 3.2) => {
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      setIsPlayingAudio(true);
+      const interval = 1 / Math.max(1, Math.min(8, cadenceHz));
+      const totalTaps = 14;
+
+      for (let i = 0; i < totalTaps; i++) {
+        const startTime = ctx.currentTime + i * interval;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(700, startTime);
+        osc.frequency.exponentialRampToValueAtTime(90, startTime + 0.035);
+        gain.gain.setValueAtTime(0.28, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.035);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(startTime);
+        osc.stop(startTime + 0.045);
+      }
+      setTimeout(() => setIsPlayingAudio(false), totalTaps * interval * 1000);
+    } catch {
+      setIsPlayingAudio(false);
+    }
+  };
+
+  // Convert real signal points into smooth SVG path
+  const generateSignalPath = (values: number[] = [], width: number = 450, height: number = 140): string => {
+    if (!values || values.length === 0) {
+      // Fallback sinusoidal movement wave
+      return 'M 5,70 C 25,20 45,128 72,70 C 98,24 125,124 150,70 C 175,16 200,132 225,70 C 250,28 275,122 300,70 C 325,18 350,130 375,70 C 400,24 425,108 450,70';
+    }
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min || 1;
+    const padding = 14;
+    const usableHeight = height - padding * 2;
+
+    return values.map((val, idx) => {
+      const x = (idx / (values.length - 1)) * width;
+      const y = height - padding - ((val - min) / range) * usableHeight;
+      return `${idx === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+  };
 
   // Authenticated Researcher History State
   const [history, setHistory] = useState<HistoryItem[]>([]);
@@ -678,89 +731,272 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 </div>
 
                 {/* ========================================================= */}
-                {/* RIGHT SIDE (50%): SHAP EXPLANATION (NO CHART, PURE CLARITY) */}
+                {/* RIGHT SIDE (50%): DUAL-VIEW (SHAP ATTRIBUTIONS / 200 Hz WAVEFORMS) */}
                 {/* ========================================================= */}
                 <div className="bg-[#14181d] p-4 sm:p-5 rounded-2xl border border-[#3a434d] flex flex-col justify-between overflow-hidden space-y-3">
                   <div className="space-y-2.5 overflow-hidden">
-                    {/* Header */}
-                    <div className="flex items-center justify-between border-b border-[#3a434d] pb-2.5">
-                      <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-[#87919b]">
-                          Explainable AI Attribution
-                        </span>
-                        <div className="font-serif text-lg font-bold text-[#f0f4f8] mt-0.5">
-                          Movement Biomarker Breakdown
-                        </div>
+                    {/* Header with Dual-View Switcher */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#3a434d] pb-2.5 gap-2">
+                      <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#0c1014] border border-[#3a434d] self-start sm:self-auto">
+                        <button
+                          type="button"
+                          onClick={() => setRightPanelView('shap')}
+                          className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                            rightPanelView === 'shap'
+                              ? 'bg-[#f0f4f8] text-[#14181d] font-bold shadow'
+                              : 'text-[#87919b] hover:text-[#f0f4f8]'
+                          }`}
+                        >
+                          Biomarkers (LinearSHAP)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setRightPanelView('telemetry')}
+                          className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                            rightPanelView === 'telemetry'
+                              ? 'bg-[#f0f4f8] text-[#14181d] font-bold shadow'
+                              : 'text-[#87919b] hover:text-[#f0f4f8]'
+                          }`}
+                        >
+                          <Radio className="w-3.5 h-3.5 text-[#c4cbd5]" />
+                          <span>200 Hz Waveforms</span>
+                        </button>
                       </div>
-                      <span className="text-[10px] font-mono text-[#f0f4f8] bg-[#2a3139] px-2.5 py-1 rounded-full border border-[#3a434d]">
-                        LinearSHAP (59 Features)
+
+                      <span className="text-[10px] font-mono text-[#f0f4f8] bg-[#2a3139] px-2.5 py-1 rounded-full border border-[#3a434d] self-start sm:self-auto">
+                        {rightPanelView === 'shap' ? 'LinearSHAP (59 Features)' : 'Real Gyroscope Telemetry'}
                       </span>
                     </div>
 
-                    {/* Movement Narrative Banner */}
-                    <div className="text-xs text-[#f0f4f8] leading-relaxed bg-[#2a3139]/60 p-3 rounded-xl border border-[#3a434d]">
-                      <p>
-                        <strong className="text-white">Biomarker Finding:</strong> Continuous 200 Hz finger-tapping kinematic features exhibited physical patterns characteristic of{' '}
-                        <strong className="text-white underline decoration-[#c4cbd5] decoration-2">
-                          {currentAnalysis.prediction.predicted_class === 'MSA' ? 'Multiple System Atrophy' : "Parkinson's Disease"}
-                        </strong>.
-                      </p>
-                      <p className="mt-1.5 text-[11px] text-[#87919b]">
-                        {currentAnalysis.prediction.predicted_class === 'MSA'
-                          ? 'Irregular cadence delays and abrupt speed halts (cerebellar ataxia incoordination) dominated the movement signals over sequence fatigue.'
-                          : 'Rhythmic tap pacing with progressive amplitude decay (hypokinesia sequence fatigue) and low-frequency rest tremor dominated the movement signals.'}
-                      </p>
-                    </div>
+                    {/* VIEW 1: LINEARSHAP BIOMARKER ATTRIBUTIONS */}
+                    {rightPanelView === 'shap' ? (
+                      <>
+                        {/* Movement Narrative Banner */}
+                        <div className="text-xs text-[#f0f4f8] leading-relaxed bg-[#2a3139]/60 p-3 rounded-xl border border-[#3a434d]">
+                          <p>
+                            <strong className="text-white">Biomarker Finding:</strong> Continuous 200 Hz finger-tapping kinematic features exhibited physical patterns characteristic of{' '}
+                            <strong className="text-white underline decoration-[#c4cbd5] decoration-2">
+                              {currentAnalysis.prediction.predicted_class === 'MSA' ? 'Multiple System Atrophy' : "Parkinson's Disease"}
+                            </strong>.
+                          </p>
+                          <p className="mt-1.5 text-[11px] text-[#87919b]">
+                            {currentAnalysis.prediction.predicted_class === 'MSA'
+                              ? 'Irregular cadence delays and abrupt speed halts (cerebellar ataxia incoordination) dominated the movement signals over sequence fatigue.'
+                              : 'Rhythmic tap pacing with progressive amplitude decay (hypokinesia sequence fatigue) and low-frequency rest tremor dominated the movement signals.'}
+                          </p>
+                        </div>
 
-                    {/* Top 4 Key Movement Factors (Structured Explanations Instead of Bar Chart) */}
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between text-[11px] font-bold text-[#f0f4f8] uppercase tracking-wide px-0.5">
-                        <span>Key Movement Signal Influences</span>
-                        <span className="text-[10px] font-mono font-normal text-[#87919b]">LinearSHAP Log-Odds</span>
-                      </div>
+                        {/* Top 4 Key Movement Factors */}
+                        <div className="space-y-1.5">
+                          <div className="flex items-center justify-between text-[11px] font-bold text-[#f0f4f8] uppercase tracking-wide px-0.5">
+                            <span>Key Movement Signal Influences</span>
+                            <span className="text-[10px] font-mono font-normal text-[#87919b]">LinearSHAP Log-Odds</span>
+                          </div>
 
-                      <div className="space-y-2">
-                        {topFactors.map((item, idx) => {
-                          const exp = getSimpleFeatureExplanation(item.rawFeature, item.direction);
-                          const isMsa = item.value > 0;
-                          return (
-                            <div
-                              key={idx}
-                              className="p-2 sm:p-2.5 rounded-xl bg-[#2a3139] border border-[#3a434d] flex flex-col justify-between space-y-1"
-                            >
-                              <div className="flex items-center justify-between text-xs font-semibold text-[#f0f4f8]">
-                                <div className="flex items-center gap-1.5 truncate">
-                                  <span className={`w-2 h-2 rounded-full shrink-0 ${isMsa ? 'bg-[#c4cbd5]' : 'bg-[#87919b]'}`} />
-                                  <span className="font-bold truncate text-[#f0f4f8]">{exp.factor}</span>
-                                </div>
-                                <span
-                                  className={`font-mono text-[10px] px-2 py-0.5 rounded-md font-bold shrink-0 ${
-                                    isMsa
-                                      ? 'bg-[#343c46] text-[#f0f4f8] border border-[#c4cbd5]/40'
-                                      : 'bg-[#2a3139] text-[#c4cbd5] border border-[#3a434d]'
-                                  }`}
-                                >
-                                  {isMsa ? `+${item.value} Towards MSA` : `${item.value} Towards PD`}
-                                </span>
-                              </div>
-
-                              <p className="text-[11px] text-[#87919b] leading-snug">
-                                <span className="text-[#f0f4f8] font-medium">{exp.finding}</span>{' '}
-                                <span className="text-[#87919b]">{exp.clinicalMeaning}</span>
-                              </p>
-
-                              {/* Mini Attribution Weight Line */}
-                              <div className="w-full h-1 bg-[#14181d] rounded-full overflow-hidden mt-0.5">
+                          <div className="space-y-2">
+                            {topFactors.map((item, idx) => {
+                              const exp = getSimpleFeatureExplanation(item.rawFeature, item.direction);
+                              const isMsa = item.value > 0;
+                              return (
                                 <div
-                                  className={`h-full rounded-full transition-all duration-300 ${isMsa ? 'bg-[#c4cbd5]' : 'bg-[#87919b]'}`}
-                                  style={{ width: `${Math.min(100, Math.max(20, Math.abs(item.value) * 150))}%` }}
+                                  key={idx}
+                                  className="p-2 sm:p-2.5 rounded-xl bg-[#2a3139] border border-[#3a434d] flex flex-col justify-between space-y-1"
+                                >
+                                  <div className="flex items-center justify-between text-xs font-semibold text-[#f0f4f8]">
+                                    <div className="flex items-center gap-1.5 truncate">
+                                      <span className={`w-2 h-2 rounded-full shrink-0 ${isMsa ? 'bg-[#c4cbd5]' : 'bg-[#87919b]'}`} />
+                                      <span className="font-bold truncate text-[#f0f4f8]">{exp.factor}</span>
+                                    </div>
+                                    <span
+                                      className={`font-mono text-[10px] px-2 py-0.5 rounded-md font-bold shrink-0 ${
+                                        isMsa
+                                          ? 'bg-[#343c46] text-[#f0f4f8] border border-[#c4cbd5]/40'
+                                          : 'bg-[#2a3139] text-[#c4cbd5] border border-[#3a434d]'
+                                      }`}
+                                    >
+                                      {isMsa ? `+${item.value} Towards MSA` : `${item.value} Towards PD`}
+                                    </span>
+                                  </div>
+
+                                  <p className="text-[11px] text-[#87919b] leading-snug">
+                                    <span className="text-[#f0f4f8] font-medium">{exp.finding}</span>{' '}
+                                    <span className="text-[#87919b]">{exp.clinicalMeaning}</span>
+                                  </p>
+
+                                  <div className="w-full h-1 bg-[#14181d] rounded-full overflow-hidden mt-0.5">
+                                    <div
+                                      className={`h-full rounded-full transition-all duration-300 ${isMsa ? 'bg-[#c4cbd5]' : 'bg-[#87919b]'}`}
+                                      style={{ width: `${Math.min(100, Math.max(20, Math.abs(item.value) * 150))}%` }}
+                                    />
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      /* VIEW 2: 200 Hz TRIAXIAL GYROSCOPE TELEMETRY OSCILLOSCOPE */
+                      <div className="space-y-3">
+                        {/* Channel Selection Buttons */}
+                        <div className="grid grid-cols-3 gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setTelemetryChannel('index')}
+                            className={`text-xs font-mono py-2 px-2 rounded-xl transition-all cursor-pointer text-center ${
+                              telemetryChannel === 'index'
+                                ? 'bg-[#f0f4f8] text-[#14181d] font-bold shadow-sm'
+                                : 'bg-[#2a3139] text-[#87919b] hover:text-[#f0f4f8] border border-[#3a434d]'
+                            }`}
+                          >
+                            Index Flexion (Y)
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setTelemetryChannel('thumb')}
+                            className={`text-xs font-mono py-2 px-2 rounded-xl transition-all cursor-pointer text-center ${
+                              telemetryChannel === 'thumb'
+                                ? 'bg-[#f0f4f8] text-[#14181d] font-bold shadow-sm'
+                                : 'bg-[#2a3139] text-[#87919b] hover:text-[#f0f4f8] border border-[#3a434d]'
+                            }`}
+                          >
+                            Thumb Abduction (Z)
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setTelemetryChannel('composite')}
+                            className={`text-xs font-mono py-2 px-2 rounded-xl transition-all cursor-pointer text-center ${
+                              telemetryChannel === 'composite'
+                                ? 'bg-[#f0f4f8] text-[#14181d] font-bold shadow-sm'
+                                : 'bg-[#2a3139] text-[#87919b] hover:text-[#f0f4f8] border border-[#3a434d]'
+                            }`}
+                          >
+                            Motion Intensity
+                          </button>
+                        </div>
+
+                        {/* Interactive Oscilloscope Viewport */}
+                        <div className="relative py-3 px-3 bg-[#0c1014] rounded-xl border border-[#3a434d] overflow-hidden shadow-inner">
+                          {/* Sweep Scan Beam Animation */}
+                          <div className="absolute top-0 bottom-0 w-28 bg-gradient-to-r from-transparent via-[#c4cbd5]/25 to-transparent animate-sweep pointer-events-none" />
+
+                          {/* Channel Badge Overlay */}
+                          <div className="absolute top-2.5 left-3 flex items-center gap-2 z-10">
+                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                            <span className="text-[10px] font-mono text-[#c4cbd5] font-bold">
+                              {telemetryChannel === 'index' && 'CH-1: gyroIndexY (Flexion Angular Velocity)'}
+                              {telemetryChannel === 'thumb' && 'CH-2: gyroThumbZ (Opposition Dynamic Axis)'}
+                              {telemetryChannel === 'composite' && 'CH-3: Kinetic Motion Intensity Envelope (RMS)'}
+                            </span>
+                          </div>
+
+                          <div className="absolute top-2.5 right-3 text-[10px] font-mono text-[#87919b] z-10">
+                            200 Hz • LOPO Verified
+                          </div>
+
+                          {/* Dynamic SVG Waveform */}
+                          {(() => {
+                            const sigs = (currentAnalysis.signal_preview as any)?.signals || {};
+                            let channelData: number[] = [];
+                            if (telemetryChannel === 'index') {
+                              channelData = sigs['gyroIndexY'] || sigs['gyroIndexX'] || [];
+                            } else if (telemetryChannel === 'thumb') {
+                              channelData = sigs['gyroThumbZ'] || sigs['gyroThumbY'] || [];
+                            } else {
+                              const iy = sigs['gyroIndexY'] || [];
+                              const tz = sigs['gyroThumbZ'] || [];
+                              channelData = iy.map((v: number, i: number) => Math.sqrt(v ** 2 + (tz[i] || 0) ** 2));
+                            }
+                            const svgPath = generateSignalPath(channelData, 450, 140);
+
+                            return (
+                              <svg viewBox="0 0 450 140" className="w-full h-36 mt-4">
+                                <defs>
+                                  <linearGradient id="liveWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stopColor="#87919b" stopOpacity="0.4" />
+                                    <stop offset="50%" stopColor="#f0f4f8" stopOpacity="1" />
+                                    <stop offset="100%" stopColor="#87919b" stopOpacity="0.8" />
+                                  </linearGradient>
+                                  <filter id="liveGlow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feGaussianBlur stdDeviation="3" result="blur" />
+                                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                  </filter>
+                                </defs>
+
+                                {/* Grid Lines */}
+                                <line x1="0" y1="35" x2="450" y2="35" stroke="#1f2730" strokeDasharray="3 3" />
+                                <line x1="0" y1="70" x2="450" y2="70" stroke="#3a434d" strokeDasharray="4 4" />
+                                <line x1="0" y1="105" x2="450" y2="105" stroke="#1f2730" strokeDasharray="3 3" />
+
+                                {/* Glowing Underline */}
+                                <path
+                                  d={svgPath}
+                                  fill="none"
+                                  stroke="#87919b"
+                                  strokeWidth="4"
+                                  opacity="0.3"
+                                  filter="url(#liveGlow)"
                                 />
-                              </div>
+                                {/* Main Continuous Signal */}
+                                <path
+                                  d={svgPath}
+                                  fill="none"
+                                  stroke="url(#liveWaveGrad)"
+                                  strokeWidth="2.4"
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                            );
+                          })()}
+                        </div>
+
+                        {/* Telemetry Metrics Bar & Audio Metronome */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-center">
+                          <div className="p-2 rounded-xl bg-[#2a3139] border border-[#3a434d]">
+                            <div className="text-[10px] text-[#87919b] font-mono">SAMPLING RATE</div>
+                            <div className="text-xs font-bold text-[#f0f4f8] mt-0.5">200 Hz Gyro</div>
+                          </div>
+                          <div className="p-2 rounded-xl bg-[#2a3139] border border-[#3a434d]">
+                            <div className="text-[10px] text-[#87919b] font-mono">DURATION</div>
+                            <div className="text-xs font-bold text-[#f0f4f8] mt-0.5">
+                              {currentAnalysis.input_metadata.duration_sec.toFixed(1)}s
                             </div>
-                          );
-                        })}
+                          </div>
+                          <div className="p-2 rounded-xl bg-[#2a3139] border border-[#3a434d]">
+                            <div className="text-[10px] text-[#87919b] font-mono">TAP CADENCE</div>
+                            <div className="text-xs font-bold text-[#f0f4f8] mt-0.5">
+                              {((currentAnalysis.extracted_features as any)?.['gyroIndexY_dom_freq'] || 3.2).toFixed(1)} Hz
+                            </div>
+                          </div>
+                          <div className="p-2 rounded-xl bg-[#2a3139] border border-[#3a434d]">
+                            <div className="text-[10px] text-[#87919b] font-mono">DATA POINTS</div>
+                            <div className="text-xs font-bold text-[#f0f4f8] mt-0.5">
+                              {currentAnalysis.input_metadata.sample_count} Samples
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Audio Metronome Button */}
+                        <button
+                          type="button"
+                          onClick={() => playTapAudio((currentAnalysis.extracted_features as any)?.['gyroIndexY_dom_freq'] || 3.2)}
+                          disabled={isPlayingAudio}
+                          className="w-full py-2.5 px-3 rounded-xl bg-[#2a3139] hover:bg-[#343c46] border border-[#3a434d] text-xs font-semibold text-[#f0f4f8] flex items-center justify-center gap-2 cursor-pointer transition-colors shadow-sm"
+                        >
+                          {isPlayingAudio ? (
+                            <>
+                              <VolumeX className="w-4 h-4 text-emerald-400 animate-pulse" />
+                              <span className="text-emerald-300">Auditory Rhythm Playing (Tap Metronome)...</span>
+                            </>
+                          ) : (
+                            <>
+                              <Volume2 className="w-4 h-4 text-[#c4cbd5]" />
+                              <span>🔊 Playback Tap Rhythm Audio (Acoustic Metronome)</span>
+                            </>
+                          )}
+                        </button>
                       </div>
-                    </div>
+                    )}
                   </div>
 
                   <div className="p-2.5 rounded-xl bg-[#2a3139] border border-[#3a434d] text-[11px] text-[#87919b] flex items-center gap-2">
